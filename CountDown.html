@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Launch Countdown</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#0f0f0f;
+color:white;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+h1{
+margin-bottom:40px;
+font-weight:500;
+letter-spacing:2px;
+}
+
+.countdown{
+display:flex;
+gap:30px;
+}
+
+.flip-card{
+background:#1a1a1a;
+border-radius:12px;
+width:120px;
+height:140px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+.number{
+font-size:60px;
+font-weight:bold;
+}
+
+.label{
+font-size:14px;
+color:#aaa;
+margin-top:10px;
+}
+
+.flip{
+animation:flip 0.6s ease;
+}
+
+@keyframes flip{
+0%{transform:rotateX(0deg);}
+50%{transform:rotateX(-90deg);}
+100%{transform:rotateX(0deg);}
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🚀 Website Launching Soon</h1>
+
+<div class="countdown">
+
+<div class="flip-card">
+<div class="number" id="hours">00</div>
+<div class="label">HOURS</div>
+</div>
+
+<div class="flip-card">
+<div class="number" id="minutes">00</div>
+<div class="label">MINUTES</div>
+</div>
+
+<div class="flip-card">
+<div class="number" id="seconds">00</div>
+<div class="label">SECONDS</div>
+</div>
+
+</div>
+
+<script>
+
+/* ==========================
+   EDIT THESE
+========================== */
+
+const launchDate = new Date("March 5, 2026 22:59:00").getTime();
+const redirectURL = "https://colossus-ait.vercel.app/";
+
+/* ========================== */
+
+function updateCountdown(){
+
+const now = Date.now();
+const distance = launchDate - now;
+
+if(distance <= 0){
+
+document.querySelector(".countdown").innerHTML =
+"<h2>🚀 Website is Live!</h2>";
+
+setTimeout(()=>{
+window.location.href = redirectURL;
+},2000);
+
+return;
+}
+
+const hours = Math.floor(distance / (1000*60*60));
+const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+const seconds = Math.floor((distance % (1000*60)) / 1000);
+
+flipNumber("hours",hours);
+flipNumber("minutes",minutes);
+flipNumber("seconds",seconds);
+
+}
+
+function flipNumber(id,newNumber){
+
+const el=document.getElementById(id);
+const formatted = String(newNumber).padStart(2,'0');
+
+if(el.innerText !== formatted){
+
+el.classList.add("flip");
+
+setTimeout(()=>{
+el.innerText = formatted;
+el.classList.remove("flip");
+},300);
+
+}
+
+}
+
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+</script>
+
+</body>
+</html>
