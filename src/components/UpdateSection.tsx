@@ -16,8 +16,8 @@ const DEFAULT_IMAGES = [
   //maximum 7 updates
   "/images/posters/ComingSoon.jpg",
   "/images/posters/inaug01.jpg",
-  "/images/posters/vishwanathswamy-02.jpg",
-  "/images/posters/GUESTREVEAL-01.jpg",
+  "/images/posters/vishwanathswamyguest-02.png",
+  "/images/posters/GUESTREVEAL-01.png",
   "/images/posters/ComingSoon.jpg",
   "/images/posters/ComingSoon.jpg",
   "/images/posters/ComingSoon.jpg",
