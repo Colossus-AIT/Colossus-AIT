@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 
 const quotes = [
   {
@@ -7,20 +7,40 @@ const quotes = [
     author: "Steve Jobs",
   },
   {
-    text: "Too many of us are not living our dreams because we are living our fears.",
-    author: "Les Brown",
+    text: "Move fast and break things. Unless you are breaking stuff, you are not moving fast enough.",
+    author: "Mark Zuckerberg",
   },
   {
-    text: "Everything has beauty, but not everyone sees it.",
-    author: "Confucius",
+    text: "It is important to follow your dreams and heart.",
+    author: "Sundar Pichai",
   },
   {
-    text: "Do not set yourself on fire to keep others warm.",
-    author: "Anonymous",
+    text: "Success is a lousy teacher. It seduces smart people into thinking they can't lose.",
+    author: "Bill Gates",
   },
   {
-    text: "Every new experience brings it own maturity and a greater clarity of vision.",
-    author: "Indira Gandhi",
+    text: "When something is important enough, you do it even if the odds are not in your favor.",
+    author: "Elon Musk",
+  },
+  {
+    text: "I think it is possible for ordinary people to choose to be extraordinary.",
+    author: "Elon Musk",
+  },
+  {
+    text: "Be passionate about what you do.",
+    author: "N. R. Narayana Murthy",
+  },
+  {
+    text: "Vision without execution is hallucination.",
+    author: "Thomas Edison",
+  },
+  {
+    text: "You have to be constantly reinventing yourself and investing in the future.",
+    author: "Satya Nadella",
+  },
+  {
+    text: "If people are not laughing at your goals, your goals are too small.",
+    author: "Azim Premji",
   },
 ];
 
@@ -41,12 +61,12 @@ const QuotesSection = () => {
     initial: {
       opacity: 0,
       y: 30,
-      filter: 'blur(10px)',
+      filter: "blur(10px)",
     },
     animate: {
       opacity: 1,
       y: 0,
-      filter: 'blur(0px)',
+      filter: "blur(0px)",
       transition: {
         duration: 1,
         ease: [0.25, 0.46, 0.45, 0.94] as const,
@@ -55,7 +75,7 @@ const QuotesSection = () => {
     exit: {
       opacity: 0,
       y: -30,
-      filter: 'blur(10px)',
+      filter: "blur(10px)",
       transition: {
         duration: 0.8,
         ease: [0.25, 0.46, 0.45, 0.94] as const,
@@ -67,7 +87,7 @@ const QuotesSection = () => {
     <section
       ref={containerRef}
       id="quotes"
-className="flex flex-col items-center pt-16 pb-16 px-6 md:px-12"
+      className="flex flex-col items-center pt-16 pb-16 px-6 md:px-12"
     >
       <div className="max-w-4xl mx-auto w-full">
         {/* Section Label */}
@@ -116,8 +136,8 @@ className="flex flex-col items-center pt-16 pb-16 px-6 md:px-12"
               onClick={() => setCurrentIndex(index)}
               className={`w-2 h-2 rounded-full transition-all duration-500 ${
                 index === currentIndex
-                  ? 'bg-foreground w-8'
-                  : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                  ? "bg-foreground w-8"
+                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
               }`}
               aria-label={`Go to quote ${index + 1}`}
             />

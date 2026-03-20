@@ -1,11 +1,19 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { ArrowUpRight, Github, Instagram, Linkedin } from 'lucide-react';
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { ArrowUpRight, Github, Instagram, Linkedin } from "lucide-react";
 
 const socials = [
-  { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/colossus_ise/' },
-  { name: 'LinkedIn', icon: Linkedin, href: 'https://www.linkedin.com/in/colossus-ise-club' },
-  { name: 'GitHub', icon: Github, href: 'https://github.com/Colossus-AIT' },
+  {
+    name: "Instagram",
+    icon: Instagram,
+    href: "https://www.instagram.com/colossus_ise_ait/",
+  },
+  {
+    name: "LinkedIn",
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/colossus-ise-club",
+  },
+  { name: "GitHub", icon: Github, href: "https://github.com/Colossus-AIT" },
 ];
 
 const ContactSection = () => {
@@ -16,23 +24,23 @@ const ContactSection = () => {
     <section
       ref={containerRef}
       id="contact"
-className="flex items-center justify-center py-16 px-6 md:px-12 relative overflow-hidden scroll-mt-24"
+      className="flex items-center justify-center py-16 px-6 md:px-12 relative overflow-hidden scroll-mt-24"
     >
       {/* Subtle Background Animation */}
       <div className="absolute inset-0 opacity-[0.02]">
         <motion.div
           animate={{
-            backgroundPosition: ['0% 0%', '100% 100%'],
+            backgroundPosition: ["0% 0%", "100% 100%"],
           }}
           transition={{
             duration: 20,
             repeat: Infinity,
-            repeatType: 'reverse',
+            repeatType: "reverse",
           }}
           className="absolute inset-0"
           style={{
             backgroundImage: `radial-gradient(circle at center, hsl(var(--foreground)) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px',
+            backgroundSize: "50px 50px",
           }}
         />
       </div>
@@ -60,12 +68,11 @@ className="flex items-center justify-center py-16 px-6 md:px-12 relative overflo
           <h2 className="font-display text-4xl md:text-6xl lg:text-7xl tracking-tight mb-8">
             Let's create
             <br />
-            something{' '}
-            <span className="italic font-light">together</span>
+            something <span className="italic font-light">together</span>
           </h2>
           <p className="text-muted-foreground font-body max-w-md">
-           Driven by learning. Powered by teamwork.
-           Let’s build something meaningful.
+            Driven by learning. Powered by teamwork. Let’s build something
+            meaningful.
           </p>
         </motion.div>
 
@@ -87,7 +94,11 @@ className="flex items-center justify-center py-16 px-6 md:px-12 relative overflo
               whileHover={{ x: 5, y: -5 }}
               className="p-3 border border-border rounded-full transition-all duration-300 group-hover:border-foreground group-hover:bg-foreground/5"
             >
-              <ArrowUpRight size={20} strokeWidth={1.5} className="transition-all duration-300 group-hover:stroke-[2]" />
+              <ArrowUpRight
+                size={20}
+                strokeWidth={1.5}
+                className="transition-all duration-300 group-hover:stroke-[2]"
+              />
             </motion.div>
           </a>
         </motion.div>
@@ -109,8 +120,8 @@ className="flex items-center justify-center py-16 px-6 md:px-12 relative overflo
               whileHover={{ y: -4, scale: 1.05 }}
               className="group flex items-center justify-center w-12 h-12 rounded-full border border-border transition-all duration-300 hover:border-foreground"
             >
-              <social.icon 
-                size={20} 
+              <social.icon
+                size={20}
                 strokeWidth={1.5}
                 className="transition-all duration-300 group-hover:stroke-[2]"
               />
