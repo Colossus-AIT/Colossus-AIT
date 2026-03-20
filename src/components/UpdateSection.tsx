@@ -1,12 +1,12 @@
-'use client';
+"use client";
 import React, {
   useMemo,
   useRef,
   useState,
   useEffect,
-  useCallback
-} from 'react';
-import { motion, useInView } from 'framer-motion';
+  useCallback,
+} from "react";
+import { motion, useInView } from "framer-motion";
 
 /* Fallback */
 const FALLBACK =
@@ -14,13 +14,13 @@ const FALLBACK =
 
 const DEFAULT_IMAGES = [
   //maximum 7 updates
-  '/images/posters/ComingSoon.jpg',
-  '/images/posters/ComingSoon.jpg',
-  '/images/posters/ComingSoon.jpg',
-  '/images/posters/ComingSoon.jpg',
-  '/images/posters/ComingSoon.jpg',
-  '/images/posters/ComingSoon.jpg',
-  '/images/posters/ComingSoon.jpg',
+  "/images/posters/ComingSoon.jpg",
+  "/images/posters/inaug01.jpg",
+  "/images/posters/vishwanathswamy-02.jpg",
+  "/images/posters/GUESTREVEAL-01.jpg",
+  "/images/posters/ComingSoon.jpg",
+  "/images/posters/ComingSoon.jpg",
+  "/images/posters/ComingSoon.jpg",
 ];
 
 /* Card Component */
@@ -38,13 +38,13 @@ const Card = React.memo(({ src, transform, cardW, cardH }: CardProps) => (
       width: cardW,
       height: cardH,
       transform,
-      transformStyle: 'preserve-3d',
-      willChange: 'transform',
+      transformStyle: "preserve-3d",
+      willChange: "transform",
     }}
   >
     <div
       className="w-full h-full rounded-2xl overflow-hidden border border-border shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
-      style={{ backfaceVisibility: 'hidden' }}
+      style={{ backfaceVisibility: "hidden" }}
     >
       <img
         src={src}
@@ -52,7 +52,7 @@ const Card = React.memo(({ src, transform, cardW, cardH }: CardProps) => (
         className="w-full h-full object-cover"
         loading="lazy"
         draggable="false"
-        onError={e => {
+        onError={(e) => {
           e.currentTarget.src = FALLBACK;
         }}
       />
@@ -60,7 +60,7 @@ const Card = React.memo(({ src, transform, cardW, cardH }: CardProps) => (
   </div>
 ));
 
-Card.displayName = 'Card';
+Card.displayName = "Card";
 
 /* Main Component */
 const ThreeDCarousel = () => {
@@ -68,15 +68,15 @@ const ThreeDCarousel = () => {
   const parentRef = useRef<HTMLDivElement>(null);
   const wheelRef = useRef<HTMLDivElement>(null);
 
-  const isInView = useInView(containerRef, { once: true, margin: '-100px' });
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   /* Responsive Physics */
@@ -143,7 +143,7 @@ const ThreeDCarousel = () => {
       velocityRef.current = newRotation - rotationRef.current;
       rotationRef.current = newRotation;
     },
-    [DRAG_SENSITIVITY]
+    [DRAG_SENSITIVITY],
   );
 
   const handleDragEnd = useCallback(() => {
@@ -168,7 +168,7 @@ const ThreeDCarousel = () => {
           transform: `rotateY(${angle}deg) translateZ(${RADIUS}px)`,
         };
       }),
-    [RADIUS]
+    [RADIUS],
   );
 
   return (
@@ -200,7 +200,7 @@ const ThreeDCarousel = () => {
       <div
         ref={parentRef}
         className="w-full flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing"
-        style={{ userSelect: 'none' }}
+        style={{ userSelect: "none" }}
         onMouseEnter={() => (isHoveredRef.current = true)}
         onMouseLeave={() => {
           isHoveredRef.current = false;
@@ -227,15 +227,15 @@ const ThreeDCarousel = () => {
             style={{
               width: CARD_W,
               height: CARD_H,
-              transformStyle: 'preserve-3d',
-              position: 'absolute',
-              left: '50%',
-              top: '50%',
+              transformStyle: "preserve-3d",
+              position: "absolute",
+              left: "50%",
+              top: "50%",
               marginLeft: -CARD_W / 2,
               marginTop: -CARD_H / 2,
             }}
           >
-            {cards.map(card => (
+            {cards.map((card) => (
               <Card
                 key={card.key}
                 src={card.src}
