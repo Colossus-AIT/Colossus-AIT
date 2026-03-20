@@ -18,7 +18,7 @@ const DEFAULT_IMAGES = [
   "/images/posters/inaug01.jpg",
   "/images/posters/vishwanathswamyguest-02.png",
   "/images/posters/GUESTREVEAL-01.png",
-  "/images/posters/ComingSoon.jpg",
+  "/images/posters/comingsoon2.png",
   "/images/posters/ComingSoon.jpg",
   "/images/posters/ComingSoon.jpg",
 ];
