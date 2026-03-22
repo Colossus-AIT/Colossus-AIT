@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useRef, useState, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
 
 interface GalleryItem {
   id: number;
@@ -8,7 +8,7 @@ interface GalleryItem {
 }
 
 const galleryItems: GalleryItem[] = [
-  { id: 1, text: "Heyyy", image: "/images/gallery/img1.jpg" },
+  { id: 1, text: "Session 1", image: "/images/gallery/session-01 img-03.jpeg" },
   { id: 2, text: "Butterfly", image: "/images/gallery/img2.jpg" },
   { id: 3, text: "chrysanthemum", image: "/images/gallery/img3.jpg" },
   { id: 4, text: "Wall Art", image: "/images/gallery/img4.jpg" },
@@ -38,12 +38,12 @@ const GallerySection = () => {
       const itemWidth = 280 + 16;
       const newIndex = Math.round(scrollLeft / itemWidth);
       setActiveIndex(
-        Math.max(0, Math.min(newIndex + 1, galleryItems.length - 1))
+        Math.max(0, Math.min(newIndex + 1, galleryItems.length - 1)),
       );
     };
 
-    scrollContainer.addEventListener('scroll', handleScroll);
-    return () => scrollContainer.removeEventListener('scroll', handleScroll);
+    scrollContainer.addEventListener("scroll", handleScroll);
+    return () => scrollContainer.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -57,16 +57,12 @@ const GallerySection = () => {
       }
     };
 
-    scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
-    return () => scrollContainer.removeEventListener('wheel', handleWheel);
+    scrollContainer.addEventListener("wheel", handleWheel, { passive: false });
+    return () => scrollContainer.removeEventListener("wheel", handleWheel);
   }, []);
 
   return (
-    <section
-      ref={containerRef}
-      id="gallery"
-      className="py-10 px-6 md:px-6"
-    >
+    <section ref={containerRef} id="gallery" className="py-10 px-6 md:px-6">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -84,7 +80,7 @@ const GallerySection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-display text-4xl md:text-6xl tracking-tight mt-8"
         >
-            Gallery
+          Gallery
         </motion.h2>
 
         <motion.p
@@ -104,7 +100,7 @@ const GallerySection = () => {
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ duration: 0.8, delay: 0.4 }}
         className="flex gap-4 overflow-x-auto scrollbar-hide py-8 px-6 md:px-12 cursor-grab active:cursor-grabbing"
-        style={{ scrollBehavior: 'smooth' }}
+        style={{ scrollBehavior: "smooth" }}
       >
         {galleryItems.map((item, index) => (
           <div key={item.id} className="flex-shrink-0 p-4">
@@ -117,16 +113,14 @@ const GallerySection = () => {
                   hoveredIndex === null
                     ? 0.6
                     : hoveredIndex === index
-                    ? 1
-                    : 0.4,
+                      ? 1
+                      : 0.4,
               }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <div
                 className={`relative w-[280px] h-[380px] bg-card border overflow-hidden transition-all ${
-                  activeIndex === index
-                    ? 'border-foreground'
-                    : 'border-border'
+                  activeIndex === index ? "border-foreground" : "border-border"
                 }`}
               >
                 <img
@@ -137,10 +131,10 @@ const GallerySection = () => {
 
                 {/* Text */}
                 <div className="absolute bottom-3 left-3">
-  <span className="font-mangro text-sm tracking-wide text-foreground">
-    {item.text}
-  </span>
-</div>
+                  <span className="font-mangro text-sm tracking-wide text-foreground">
+                    {item.text}
+                  </span>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -154,8 +148,8 @@ const GallerySection = () => {
             key={index}
             className={`h-2 rounded-full transition-all duration-300 ${
               index === activeIndex
-                ? 'bg-foreground w-6'
-                : 'bg-muted-foreground/30 w-2'
+                ? "bg-foreground w-6"
+                : "bg-muted-foreground/30 w-2"
             }`}
           />
         ))}
