@@ -8,8 +8,8 @@ interface GalleryItem {
 }
 
 const galleryItems: GalleryItem[] = [
-  { id: 1, text: "Session 1", image: "/images/gallery/session-01 img-03.jpeg" },
-  { id: 2, text: "Guest!", image: "/images/gallery/inaug-01.jpeg" },
+  { id: 1, text: "Session 1", image: "/images/gallery/inaug-01.jpeg" },
+  { id: 2, text: "Guest!", image: "/images/gallery/inaug-11.jpeg" },
   { id: 3, text: "Inauguration", image: "/images/gallery/inaug-02.jpeg" },
   { id: 4, text: "Deepa prajwalan ", image: "/images/gallery/inaug-03.JPG" },
   { id: 5, text: "Website Launch", image: "/images/gallery/inaug-04.png" },
@@ -17,8 +17,12 @@ const galleryItems: GalleryItem[] = [
   { id: 7, text: "Deepa prajwalan", image: "/images/gallery/inaug-06.JPG" },
   { id: 8, text: "Tech Talk by Guest", image: "/images/gallery/inaug-07.JPG" },
   { id: 9, text: "Inauguration ", image: "/images/gallery/inaug-08.JPG" },
-  { id: 10, text: "Colossus!", image: "/images/gallery/inaug-09.jpeg" },
-  { id: 11, text: "Colossus!", image: "/images/gallery/inaug-10.jpeg" },
+  { id: 10, text: "Colossus!", image: "/images/gallery/inaug-10.jpeg" },
+  {
+    id: 11,
+    text: "Colossus!",
+    image: "/images/gallery/session-01 img-03.jpeg",
+  },
 ];
 
 const GallerySection = () => {
