@@ -14,13 +14,13 @@ const FALLBACK =
 
 const DEFAULT_IMAGES = [
   //maximum 7 updates
-  "/images/posters/ComingSoon.jpg",
-  "/images/posters/inaug01.jpg",
-  "/images/posters/vishwanathswamyguest-02.png",
+  "/images/gallery/inaug-11.jpeg",
+  "/images/gallery/inaug-01.jpeg",
+  "/images/gallery/inaug-03.JPG",
   "/images/posters/GUESTREVEAL-01.png",
-  "/images/posters/comingsoon2.png",
-  "/images/posters/Countdown-poster-3days.png",
-  "/images/posters/web-hero-poster.png",
+  "/images/gallery/inaug-04.png",
+  "/images/gallery/inaug-09.jpeg",
+  "/images/gallery/inaug-07.JPG",
 ];
 
 /* Card Component */

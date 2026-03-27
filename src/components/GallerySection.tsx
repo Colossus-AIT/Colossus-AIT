@@ -9,16 +9,16 @@ interface GalleryItem {
 
 const galleryItems: GalleryItem[] = [
   { id: 1, text: "Session 1", image: "/images/gallery/session-01 img-03.jpeg" },
-  { id: 2, text: "Butterfly", image: "/images/gallery/img2.jpg" },
-  { id: 3, text: "chrysanthemum", image: "/images/gallery/img3.jpg" },
-  { id: 4, text: "Wall Art", image: "/images/gallery/img4.jpg" },
-  { id: 5, text: "Lily", image: "/images/gallery/img18.jpg" },
-  { id: 6, text: "Yellow Peony", image: "/images/gallery/img6.jpg" },
-  { id: 7, text: "Guest!", image: "/images/gallery/img7.jpg" },
-  { id: 8, text: "Reward", image: "/images/gallery/img8.jpg" },
-  { id: 9, text: "Wall Art", image: "/images/gallery/img9.jpg" },
-  { id: 10, text: "Guest!", image: "/images/gallery/img10.jpg" },
-  { id: 11, text: "Waterlily", image: "/images/gallery/img11.jpg" },
+  { id: 2, text: "Guest!", image: "/images/gallery/inaug-01.jpeg" },
+  { id: 3, text: "Inauguration", image: "/images/gallery/inaug-02.jpeg" },
+  { id: 4, text: "Deepa prajwalan ", image: "/images/gallery/inaug-03.JPG" },
+  { id: 5, text: "Website Launch", image: "/images/gallery/inaug-04.png" },
+  { id: 6, text: "Deepa prajwalan ", image: "/images/gallery/inaug-05.JPG" },
+  { id: 7, text: "Deepa prajwalan", image: "/images/gallery/inaug-06.JPG" },
+  { id: 8, text: "Tech Talk by Guest", image: "/images/gallery/inaug-07.JPG" },
+  { id: 9, text: "Inauguration ", image: "/images/gallery/inaug-08.JPG" },
+  { id: 10, text: "Colossus!", image: "/images/gallery/inaug-09.jpeg" },
+  { id: 11, text: "Colossus!", image: "/images/gallery/inaug-10.jpeg" },
 ];
 
 const GallerySection = () => {
@@ -109,24 +109,19 @@ const GallerySection = () => {
               onMouseLeave={() => setHoveredIndex(null)}
               animate={{
                 scale: hoveredIndex === index ? 1.1 : 1,
-                opacity:
-                  hoveredIndex === null
-                    ? 0.6
-                    : hoveredIndex === index
-                      ? 1
-                      : 0.4,
               }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <div
-                className={`relative w-[280px] h-[380px] bg-card border overflow-hidden transition-all ${
+                className={`relative w-[280px] h-[380px] bg-black border flex items-center justify-center overflow-hidden ${
                   activeIndex === index ? "border-foreground" : "border-border"
                 }`}
               >
+                {/* ✅ FIXED IMAGE */}
                 <img
                   src={item.image}
                   alt={item.text}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="max-w-full max-h-full object-contain"
                 />
 
                 {/* Text */}
