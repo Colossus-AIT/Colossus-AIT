@@ -18,7 +18,7 @@ const DEFAULT_IMAGES = [
   "/images/gallery/inaug-01.jpeg",
   "/images/gallery/inaug-03.JPG",
   "/images/posters/GUESTREVEAL-01.png",
-  "/images/gallery/inaug-04.png",
+  "/images/posters/Event-completed.jpeg",
   "/images/gallery/inaug-09.jpeg",
   "/images/gallery/inaug-07.JPG",
 ];
