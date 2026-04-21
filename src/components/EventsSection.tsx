@@ -67,6 +67,68 @@ const EventsSection = () => {
       id="events"
       className="min-h-screen py-10 px-6 md:px-12 scroll-mt-24"
     >
+      <div>
+        <h2 className="font-display text-4xl font-bold tracking-tight">
+          Upcoming Events
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-30">
+          {events.map((event, index) => (
+            <motion.div
+              key={event.id}
+              initial={{ opacity: 0, y: 50 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: index * 0.2 }}
+              onMouseEnter={() => setHoveredId(event.id)}
+              onMouseLeave={() => setHoveredId(null)}
+              onClick={() => setSelectedEvent(event)}
+              className="group relative cursor-pointer hover:cursor-zoom-in" // ✅ cursor change
+            >
+              <motion.div
+                whileHover={{ y: -8 }}
+                className={`relative aspect-[4/5] border bg-card overflow-hidden transition-all duration-500 ${
+                  hoveredId === event.id
+                    ? "border-foreground shadow-[0_0_25px_rgba(255,255,255,0.1)]"
+                    : "border-border"
+                }`}
+              >
+                <div className="absolute inset-0 flex flex-col">
+                  <div className="relative w-full aspect-[2/3] overflow-hidden">
+                    <img
+                      src={event.poster}
+                      alt={event.title}
+                      className="absolute inset-0 w-full h-full object-contain bg-black transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                  </div>
+
+                  <div className="flex-1 p-6 flex flex-col justify-between">
+                    <div className="flex justify-between">
+                      <span className="text-xs text-muted-foreground">
+                        {event.date}
+                      </span>
+
+                      <ArrowUpRight
+                        size={20}
+                        className={`transition ${
+                          hoveredId === event.id ? "opacity-100" : "opacity-0"
+                        }`}
+                      />
+                    </div>
+
+                    <div>
+                      <span className="text-xs text-muted-foreground block mb-2">
+                        {event.category}
+                      </span>
+
+                      <h3 className="text-xl font-medium">{event.title}</h3>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -75,7 +137,7 @@ const EventsSection = () => {
           className="mb-12"
         >
           <h2 className="font-display text-4xl font-bold tracking-tight">
-            Events
+            Completed Events
           </h2>
         </motion.div>
 
@@ -211,6 +273,7 @@ const EventsSection = () => {
           )}
         </AnimatePresence>
       </div>
+      <div></div>
     </section>
   );
 };
