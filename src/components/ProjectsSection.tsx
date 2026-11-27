@@ -165,7 +165,7 @@ const ProjectsSection = () => {
                 </button>
 
                 <span className="text-xs tracking-widest text-muted-foreground block mb-2">
-                  {selectedProject.category} — {selectedProject.year}
+                  {selectedProject.category} · {selectedProject.year}
                 </span>
 
                 <h2 className="font-display text-2xl sm:text-3xl md:text-5xl font-bold mb-6 break-words">

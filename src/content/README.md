@@ -28,6 +28,8 @@ Entries appear in the order listed. Keep at least one entry in the Quotes list a
 
 ## Add images or PDFs
 
+Set an event’s `status` in its content file to `upcoming` or `completed` to choose which section it appears in.
+
 Put gallery photos in `public/images/gallery` and posters in `public/images/posters`. In the content file, use a path like `/images/gallery/team-photo.jpg`. The path starts after the `public` folder and uses the exact filename, including its extension and capitalization.
 
 Use `registrationUrl` for the event registration link and `galleryUrl` for the link opened by the **Details PDF** button. If you add `public/events/workshop.pdf`, use `/events/workshop.pdf` as the link. For an external form or PDF, paste its full web address.

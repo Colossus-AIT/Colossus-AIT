@@ -77,7 +77,7 @@ className="flex flex-col items-center pt-16 pb-16 px-6 md:px-12"
                 "{quotes[currentIndex].text}"
               </blockquote>
               <cite className="text-sm tracking-widest text-muted-foreground font-body not-italic">
-                — {quotes[currentIndex].author}
+                {quotes[currentIndex].author}
               </cite>
             </motion.div>
           </AnimatePresence>

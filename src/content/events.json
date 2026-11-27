@@ -2,6 +2,7 @@
   "events": [
     {
       "id": 1,
+      "status": "completed",
       "title": "CLUB INAUGURATION",
       "category": "Club Launch",
       "date": "25 March 2026",
@@ -13,6 +14,7 @@
     },
     {
       "id": 2,
+      "status": "completed",
       "title": "FULL STACK WORKSHOP",
       "category": "Web Development",
       "date": "April 2026",
@@ -21,9 +23,43 @@
       "details": "A practical full-stack development workshop covering architecture, deployment, Git workflows, and collaborative coding.",
       "registrationUrl": "#",
       "galleryUrl": "#"
+    },
+    {
+      "id": 4,
+      "status": "upcoming",
+      "title": "UI Design Lab",
+      "category": "Design",
+      "date": "Placeholder event",
+      "poster": "/images/posters/ComingSoon.jpg",
+      "description": "A sample workshop on turning sketches into interactive prototypes.",
+      "details": "This sample listing is for a hands-on workshop on wireframes, interface design and prototyping. A schedule and registration have yet to be announced.",
+      "registrationUrl": "#",
+      "galleryUrl": "#"
+    },
+    {
+      "id": 5,
+      "status": "upcoming",
+      "title": "Data Visualization Workshop",
+      "category": "Data Science",
+      "date": "Placeholder event",
+      "poster": "/images/posters/ComingSoon.jpg",
+      "description": "A sample workshop on turning datasets into clear, readable charts.",
+      "details": "This sample listing is for a practical session on choosing charts and presenting data clearly. A schedule and registration have yet to be announced.",
+      "registrationUrl": "#",
+      "galleryUrl": "#"
     }
   ],
   "heading": "Events",
+  "sections": {
+    "upcoming": {
+      "heading": "Upcoming Events",
+      "emptyMessage": "No upcoming events have been announced."
+    },
+    "completed": {
+      "heading": "Completed Events",
+      "emptyMessage": "No completed events yet."
+    }
+  },
   "registrationLabel": "REGISTER",
   "detailsLabel": "Details PDF"
 }

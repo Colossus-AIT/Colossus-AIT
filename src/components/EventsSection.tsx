@@ -11,6 +11,7 @@ const events = [
   ...eventsContent.events,
   {
     id: mockHackathon.id,
+    status: mockHackathon.status,
     title: mockHackathon.title,
     category: mockHackathon.category,
     date: mockHackathon.date,
@@ -19,6 +20,12 @@ const events = [
     path: mockHackathon.path,
   },
 ];
+
+const eventGroups = Object.entries(eventsContent.sections).map(([status, section]) => ({
+  status,
+  ...section,
+  events: events.filter(event => event.status === status),
+}));
 
 const EventsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -52,112 +59,121 @@ const EventsSection = () => {
       </motion.h2>
     </motion.div>
 
-    {/* Events Grid */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {events.map((event, index) => (
-        <motion.div
-          key={event.id}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: index * 0.2 }}
-          onMouseEnter={() => setHoveredId(event.id)}
-          onMouseLeave={() => setHoveredId(null)}
-          onClick={'path' in event ? undefined : () => setSelectedEvent(event)}
-          className="group relative cursor-pointer"
-        >
-          <motion.div
-            whileHover={{ y: -8 }}
-            transition={{ duration: 0.3 }}
-            className={`relative aspect-[4/5] border bg-card overflow-hidden transition-all duration-500 ${
-              hoveredId === event.id
-                ? 'border-foreground shadow-[0_0_25px_rgba(255,255,255,0.08)]'
-                : 'border-border'
-            }`}
-          >
-            {/* Card Layout */}
-            <div className="absolute inset-0 flex flex-col">
-
-              {/* Poster Section */}
-              <div className="relative w-full aspect-[2/3] overflow-hidden">
-                <img
-                  src={event.poster}
-                  alt={event.title}
-              className="absolute inset-0 w-full h-full object-contain bg-black transition-transform duration-700 group-hover:scale-105"
-                  draggable="false"
-                />
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-              </div>
-
-              {/* Content Section */}
-              <div className="flex-1 p-6 flex flex-col justify-between">
-
-                {/* Top Meta */}
-                <div className="flex justify-between items-start">
-                  <span className="text-xs tracking-widest text-muted-foreground">
-                    {event.date}
-                  </span>
-
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{
-                      opacity: hoveredId === event.id ? 1 : 0,
-                      scale: hoveredId === event.id ? 1 : 0.5
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ArrowUpRight size={20} />
-                  </motion.div>
-                </div>
-
-                {/* Bottom Info */}
-                <div>
-                  <span className="text-xs tracking-widest text-muted-foreground block mb-2">
-                    {event.category}
-                  </span>
-
-                  <h3
-                    className={`font-display text-xl md:text-2xl tracking-tight transition-all duration-300 ${
-                      hoveredId === event.id ? 'font-bold' : 'font-medium'
-                    }`}
-                  >
-                    {'path' in event ? (
-                      <Link
-                        to={event.path}
-                        className="after:absolute after:inset-0 focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-offset-[-4px]"
-                      >
-                        {event.title}
-                      </Link>
-                    ) : event.title}
-                  </h3>
-
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{
-                      opacity: hoveredId === event.id ? 1 : 0,
-                      y: hoveredId === event.id ? 0 : 10
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className="mt-3 text-sm text-muted-foreground font-body"
-                  >
-                    {event.description}
-                  </motion.p>
-                </div>
-
-              </div>
-            </div>
-
-            {/* Hover Border */}
+    {eventGroups.map(group => (
+      <section key={group.status} aria-labelledby={`events-${group.status}`} className="mb-12 last:mb-0">
+        <h3 id={`events-${group.status}`} className="mb-6 font-display text-2xl font-bold tracking-tight md:text-3xl">
+          {group.heading}
+        </h3>
+        {group.events.length === 0 && (
+          <p className="text-sm text-muted-foreground">{group.emptyMessage}</p>
+        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {group.events.map((event, index) => (
             <motion.div
-              className="absolute inset-0 border-2 border-foreground pointer-events-none"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: hoveredId === event.id ? 1 : 0 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.div>
-        </motion.div>
-      ))}
-    </div>
+              key={event.id}
+              initial={{ opacity: 0, y: 50 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: index * 0.2 }}
+              onMouseEnter={() => setHoveredId(event.id)}
+              onMouseLeave={() => setHoveredId(null)}
+              onClick={'path' in event ? undefined : () => setSelectedEvent(event)}
+              className="group relative cursor-pointer"
+            >
+              <motion.div
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.3 }}
+                className={`relative aspect-[4/5] border bg-card overflow-hidden transition-all duration-500 ${
+                  hoveredId === event.id
+                    ? 'border-foreground shadow-[0_0_25px_rgba(255,255,255,0.08)]'
+                    : 'border-border'
+                }`}
+              >
+                {/* Card Layout */}
+                <div className="absolute inset-0 flex flex-col">
+
+                  {/* Poster Section */}
+                  <div className="relative w-full aspect-[2/3] overflow-hidden">
+                    <img
+                      src={event.poster}
+                      alt={event.title}
+                  className="absolute inset-0 w-full h-full object-contain bg-black transition-transform duration-700 group-hover:scale-105"
+                      draggable="false"
+                    />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                  </div>
+
+                  {/* Content Section */}
+                  <div className="flex-1 p-6 flex flex-col justify-between">
+
+                    {/* Top Meta */}
+                    <div className="flex justify-between items-start">
+                      <span className="text-xs tracking-widest text-muted-foreground">
+                        {event.date}
+                      </span>
+
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{
+                          opacity: hoveredId === event.id ? 1 : 0,
+                          scale: hoveredId === event.id ? 1 : 0.5
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ArrowUpRight size={20} />
+                      </motion.div>
+                    </div>
+
+                    {/* Bottom Info */}
+                    <div>
+                      <span className="text-xs tracking-widest text-muted-foreground block mb-2">
+                        {event.category}
+                      </span>
+
+                      <h4
+                        className={`font-display text-xl md:text-2xl tracking-tight transition-all duration-300 ${
+                          hoveredId === event.id ? 'font-bold' : 'font-medium'
+                        }`}
+                      >
+                        {'path' in event ? (
+                          <Link
+                            to={event.path}
+                            className="after:absolute after:inset-0 focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-offset-[-4px]"
+                          >
+                            {event.title}
+                          </Link>
+                        ) : event.title}
+                      </h4>
+
+                      <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{
+                          opacity: hoveredId === event.id ? 1 : 0,
+                          y: hoveredId === event.id ? 0 : 10
+                        }}
+                        transition={{ duration: 0.3 }}
+                        className="mt-3 text-sm text-muted-foreground font-body"
+                      >
+                        {event.description}
+                      </motion.p>
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* Hover Border */}
+                <motion.div
+                  className="absolute inset-0 border-2 border-foreground pointer-events-none"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: hoveredId === event.id ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    ))}
 
     {/* Modal */}
     <AnimatePresence>
@@ -185,7 +201,7 @@ const EventsSection = () => {
             </button>
 
             <span className="text-xs tracking-widest text-muted-foreground block mb-3">
-              {selectedEvent.category} — {selectedEvent.date}
+              {selectedEvent.category} · {selectedEvent.date}
             </span>
 
             <h2 className="font-display text-2xl sm:text-3xl md:text-5xl tracking-tight font-bold mb-6 break-words">
