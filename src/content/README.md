@@ -24,7 +24,7 @@ Open the file for the section you want to update. Change the words or links insi
 2. Paste it after the last entry in the list. Put a comma between the two entries.
 3. Give the new entry an unused `id` number and replace its text, image path, and links.
 
-Entries appear in the order listed. Keep at least one entry in the Quotes list and use up to seven images in the Updates carousel.
+Entries appear in the order listed. Keep at least one entry in the Quotes list.
 
 ## Add images or PDFs
 
