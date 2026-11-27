@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import galleryContent from '@/content/gallery.json';
 import mockHackathon from '@/content/mock-hackathon-2026.json';
 
@@ -18,6 +20,14 @@ const GallerySection = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+  const viewerTrigger = useRef<HTMLButtonElement | null>(null);
+  const selectedPhoto = galleryItems[selectedIndex];
+
+  const movePhoto = (direction: number) => {
+    setSelectedIndex(index => (index + direction + galleryItems.length) % galleryItems.length);
+  };
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -113,8 +123,16 @@ const GallerySection = () => {
               }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              <div
-                className={`relative w-[280px] h-[380px] bg-card border overflow-hidden transition-all ${
+              <button
+                type="button"
+                aria-haspopup="dialog"
+                aria-label={`Enlarge image: ${item.text}`}
+                onClick={event => {
+                  viewerTrigger.current = event.currentTarget;
+                  setSelectedIndex(index);
+                  setIsViewerOpen(true);
+                }}
+                className={`relative block w-[280px] h-[380px] cursor-pointer bg-card border overflow-hidden text-left transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${
                   activeIndex === index
                     ? 'border-foreground'
                     : 'border-border'
@@ -122,18 +140,16 @@ const GallerySection = () => {
               >
                 <img
                   src={item.image}
-                  alt={item.text}
+                  alt=""
                   loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
 
                 {/* Text */}
-                <div className="absolute bottom-3 left-3">
-  <span className="font-mangro text-sm tracking-wide text-foreground">
-    {item.text}
-  </span>
-</div>
-              </div>
+                <span className="absolute bottom-3 left-3 font-mangro text-sm tracking-wide text-foreground">
+                  {item.text}
+                </span>
+              </button>
             </motion.div>
           </div>
         ))}
@@ -152,6 +168,41 @@ const GallerySection = () => {
           />
         ))}
       </div>
+
+      <Dialog open={isViewerOpen} onOpenChange={setIsViewerOpen}>
+        <DialogContent
+          aria-describedby={undefined}
+          className="max-h-[94dvh] w-[calc(100%-2rem)] max-w-5xl gap-3 overflow-auto p-4 motion-reduce:animate-none sm:p-6"
+          onCloseAutoFocus={event => {
+            event.preventDefault();
+            viewerTrigger.current?.focus({ preventScroll: true });
+          }}
+          onKeyDown={event => {
+            if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+              event.preventDefault();
+              movePhoto(event.key === 'ArrowLeft' ? -1 : 1);
+            }
+          }}
+        >
+          <DialogTitle aria-live="polite" className="pr-8 text-base">
+            {selectedPhoto.text}
+          </DialogTitle>
+          <img
+            src={selectedPhoto.image}
+            alt={selectedPhoto.text}
+            className="mx-auto h-[65dvh] w-full object-contain sm:h-[72dvh]"
+          />
+          <div className="flex items-center justify-between">
+            <button type="button" aria-label="Previous photo" onClick={() => movePhoto(-1)} className="p-2 hover:bg-muted focus-visible:outline">
+              <ChevronLeft size={24} aria-hidden="true" />
+            </button>
+            <span className="text-sm tabular-nums text-muted-foreground">{selectedIndex + 1} / {galleryItems.length}</span>
+            <button type="button" aria-label="Next photo" onClick={() => movePhoto(1)} className="p-2 hover:bg-muted focus-visible:outline">
+              <ChevronRight size={24} aria-hidden="true" />
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
