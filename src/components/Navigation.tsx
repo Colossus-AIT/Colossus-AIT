@@ -2,7 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Moon, Sun, Volume2, VolumeX } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
-import PillNav, { PillNavItem } from './PillNav';
+import PillNav from './PillNav';
+import navigationContent from '@/content/navigation.json';
+
+const { navItems } = navigationContent;
 
 interface NavigationProps {
   onThemeToggle: () => void;
@@ -48,16 +51,6 @@ const Navigation = ({ onThemeToggle, isDark }: NavigationProps) => {
     }
   };
 
-const navItems: PillNavItem[] = [
-  { label: 'Home', href: '/#hero' },
-  { label: 'Projects', href: '/#projects' },
-  { label: 'Events', href: '/events' },
-  { label: 'Updates', href: '/#updates' },
-  { label: 'Contact', href: '/#contact' }
-];
-
-
-
   return (
     
     <motion.nav
@@ -77,18 +70,16 @@ className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 flex items-center
             whileHover={{ scale: 1.05 }}
           >
             <img
-              src="/logos/Colossus_logo_png.png"
-              alt="Colossus Logo"
+              src={navigationContent.logo}
+              alt={navigationContent.logoAlt}
               className="h-8 w-auto object-contain"
             />
           </motion.a>
 
-
-
          {/* Pill Navigation */}
       <PillNav
-        logo="/logos/Colossus_logo_png.png"
-        logoAlt="Colossus Logo"
+        logo={navigationContent.logo}
+        logoAlt={navigationContent.logoAlt}
         items={navItems}
         activeHref={location.pathname}
         baseColor="transparent"             // keep base fixed
@@ -98,9 +89,6 @@ className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 flex items-center
         initialLoadAnimation={false}
       />
  
-
-
-
 
       {/* Right Controls */}
       <div className="flex items-center gap-6">
@@ -142,8 +130,5 @@ className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 flex items-center
     </motion.nav>
   );
 };
-
-
-
 
 export default Navigation;

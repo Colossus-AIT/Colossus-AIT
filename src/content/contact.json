@@ -1,0 +1,22 @@
+{
+  "socials": [
+    {
+      "name": "Instagram",
+      "href": "https://www.instagram.com/colossus_ise/"
+    },
+    {
+      "name": "LinkedIn",
+      "href": "https://www.linkedin.com/in/colossus-ise-club"
+    },
+    {
+      "name": "GitHub",
+      "href": "https://github.com/Colossus-AIT"
+    }
+  ],
+  "sectionLabel": "006 / CONNECT",
+  "headingFirstLine": "Let's create",
+  "headingSecondLine": "something",
+  "headingEmphasis": "together",
+  "description": "Driven by learning. Powered by teamwork. Let’s build something meaningful.",
+  "email": "colossusise@gmail.com"
+}

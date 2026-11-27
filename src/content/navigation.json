@@ -1,0 +1,26 @@
+{
+  "navItems": [
+    {
+      "label": "Home",
+      "href": "/#hero"
+    },
+    {
+      "label": "Projects",
+      "href": "/#projects"
+    },
+    {
+      "label": "Events",
+      "href": "/events"
+    },
+    {
+      "label": "Updates",
+      "href": "/#updates"
+    },
+    {
+      "label": "Contact",
+      "href": "/#contact"
+    }
+  ],
+  "logo": "/logos/Colossus_logo_png.png",
+  "logoAlt": "Colossus Logo"
+}

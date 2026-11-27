@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import footerContent from '@/content/footer.json';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -9,10 +10,10 @@ const Footer = () => {
         {/* Left */}
         <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
           <span className="font-display text-sm tracking-widest">
-            Ideas into impact
+            {footerContent.tagline}
           </span>
           <span className="text-xs text-muted-foreground font-body">
-            © {currentYear} All rights reserved
+            © {currentYear} {footerContent.copyright}
           </span>
         </div>
 
@@ -23,7 +24,7 @@ const Footer = () => {
             whileHover={{ y: -2 }}
             className="text-xs tracking-widest text-muted-foreground hover:text-foreground transition-colors font-body"
           >
-            BACK TO TOP
+            {footerContent.backToTop}
           </motion.a>
         </div>
       </div>

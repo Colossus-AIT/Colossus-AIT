@@ -7,21 +7,13 @@ import React, {
   useCallback
 } from 'react';
 import { motion, useInView } from 'framer-motion';
+import updatesContent from '@/content/updates.json';
+
+const { images: updateImages } = updatesContent;
 
 /* Fallback */
 const FALLBACK =
   'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="220"><rect width="100%" height="100%" fill="%23e2e8f0"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%234a5568" font-size="18">Image</text></svg>';
-
-const DEFAULT_IMAGES = [
-  //maximum 7 updates
-  '/images/posters/ComingSoon.jpg',
-  '/images/posters/ComingSoon.jpg',
-  '/images/posters/ComingSoon.jpg',
-  '/images/posters/ComingSoon.jpg',
-  '/images/posters/ComingSoon.jpg',
-  '/images/posters/ComingSoon.jpg',
-  '/images/posters/ComingSoon.jpg',
-];
 
 /* Card Component */
 interface CardProps {
@@ -48,7 +40,7 @@ const Card = React.memo(({ src, transform, cardW, cardH }: CardProps) => (
     >
       <img
         src={src}
-        alt="Carousel item"
+        alt={updatesContent.imageAlt}
         className="w-full h-full object-cover"
         loading="lazy"
         draggable="false"
@@ -160,8 +152,8 @@ const ThreeDCarousel = () => {
   /* Cards */
   const cards = useMemo(
     () =>
-      DEFAULT_IMAGES.map((src, idx) => {
-        const angle = (idx * 360) / DEFAULT_IMAGES.length;
+      updateImages.map((src, idx) => {
+        const angle = (idx * 360) / updateImages.length;
         return {
           key: idx,
           src,
@@ -184,7 +176,7 @@ const ThreeDCarousel = () => {
         className="mb-6"
       >
         <span className="text-xs tracking-[0.3em] text-muted-foreground">
-          002 / IN ACTION
+          {updatesContent.sectionLabel}
         </span>
       </motion.div>
 
@@ -194,7 +186,7 @@ const ThreeDCarousel = () => {
         transition={{ duration: 0.6 }}
         className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-12 tracking-tight"
       >
-        Updates
+        {updatesContent.heading}
       </motion.h2>
 
       <div

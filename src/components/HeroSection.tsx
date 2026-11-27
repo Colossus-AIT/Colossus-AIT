@@ -1,5 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import heroContent from '@/content/hero.json';
+
+const { titleText, subtitleText } = heroContent;
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,9 +48,6 @@ const HeroSection = () => {
     }),
   };
 
-  const titleText = "COLOSSUS";
-  const subtitleText = "TECH CLUB";
-
   return (
     <section
       ref={containerRef}
@@ -75,7 +75,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="block text-xs md:text-sm tracking-[0.3em] text-muted-foreground/60 mb-8 font-body"
         >
-            2026
+            {heroContent.year}
         </motion.span>
 
        {/* Main Title Letters */}
@@ -117,7 +117,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 1.5 }}
           className="mt-12 text-sm md:text-base text-muted-foreground max-w-md mx-auto font-body font-light tracking-wide"
         >
-         Exploring computation beyond the classroom
+         {heroContent.tagline}
         </motion.p>
       </motion.div>
 
@@ -133,7 +133,7 @@ const HeroSection = () => {
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           className="flex flex-col items-center gap-2"
         >
-          <span className="text-xs tracking-widest text-muted-foreground ">SCROLL</span>
+          <span className="text-xs tracking-widest text-muted-foreground ">{heroContent.scrollLabel}</span>
           <div className="w-px h-12 bg-gradient-to-b from-foreground to-transparent" />
         </motion.div>
       </motion.div>

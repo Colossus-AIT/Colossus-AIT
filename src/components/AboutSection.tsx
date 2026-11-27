@@ -1,21 +1,12 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import aboutContent from '@/content/about.json';
+
+const { mainLines, philosophyLines } = aboutContent;
 
 const AboutSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-
-  const mainLines = [
-   "We build with intention",
-   "design with clarity",
-   "and engineer with impact.",
-   
-  ];
-
-  const philosophyLines = [
-   "Every mind contributes.",
-"Every build defines Colossus.",
-  ];
 
   const containerVariants = {
     hidden: {},
@@ -67,7 +58,7 @@ const AboutSection = () => {
           className="mb-16"
         >
           <span className="text-xs tracking-[0.3em] text-muted-foreground font-body">
-            001 / ABOUT
+            {aboutContent.sectionLabel}
           </span>
         </motion.div>
 
@@ -127,20 +118,18 @@ const AboutSection = () => {
           className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8"
         >
           <div className="space-y-2">
-            <span className="text-xs tracking-widest text-muted-foreground">FOCUS</span>
-            <p className="text-sm font-body">Learn by Building.
-                                              Grow by Doing.
-                                              Thrive Together.</p>
+            <span className="text-xs tracking-widest text-muted-foreground">{aboutContent.focusLabel}</span>
+            <p className="text-sm font-body">{aboutContent.focusText}</p>
           </div>
           <div className="space-y-2">
-            <span className="text-xs tracking-widest text-muted-foreground">LOCATION</span>
-            <p className="text-sm font-body">Based in Tumakuru</p>
+            <span className="text-xs tracking-widest text-muted-foreground">{aboutContent.locationLabel}</span>
+            <p className="text-sm font-body">{aboutContent.locationText}</p>
           </div>
           <div className="space-y-2">
-            <span className="text-xs tracking-widest text-muted-foreground">STATUS</span>
+            <span className="text-xs tracking-widest text-muted-foreground">{aboutContent.statusLabel}</span>
             <p className="text-sm font-body flex items-center gap-2">
               <span className="w-2 h-2 bg-foreground rounded-full animate-pulse-subtle" />
-                  Active
+                  {aboutContent.statusText}
             </p>
           </div>
         </motion.div>

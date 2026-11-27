@@ -1,24 +1,14 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
+import galleryContent from '@/content/gallery.json';
+import mockHackathon from '@/content/mock-hackathon-2026.json';
 
-interface GalleryItem {
-  id: number;
-  text: string;
-  image: string;
-}
-
-const galleryItems: GalleryItem[] = [
-  { id: 1, text: "Heyyy", image: "/images/gallery/img1.jpg" },
-  { id: 2, text: "Butterfly", image: "/images/gallery/img2.jpg" },
-  { id: 3, text: "chrysanthemum", image: "/images/gallery/img3.jpg" },
-  { id: 4, text: "Wall Art", image: "/images/gallery/img4.jpg" },
-  { id: 5, text: "Lily", image: "/images/gallery/img18.jpg" },
-  { id: 6, text: "Yellow Peony", image: "/images/gallery/img6.jpg" },
-  { id: 7, text: "Guest!", image: "/images/gallery/img7.jpg" },
-  { id: 8, text: "Reward", image: "/images/gallery/img8.jpg" },
-  { id: 9, text: "Wall Art", image: "/images/gallery/img9.jpg" },
-  { id: 10, text: "Guest!", image: "/images/gallery/img10.jpg" },
-  { id: 11, text: "Waterlily", image: "/images/gallery/img11.jpg" },
+const galleryItems = [
+  ...mockHackathon.photos.map(({ file, caption }) => ({
+    image: `${mockHackathon.imageFolder}/${file}`,
+    text: caption,
+  })),
+  ...galleryContent.galleryItems,
 ];
 
 const GallerySection = () => {
@@ -74,7 +64,7 @@ const GallerySection = () => {
           transition={{ duration: 0.8 }}
         >
           <span className="text-xs tracking-[0.3em] text-muted-foreground font-body">
-            004 / MOMENTS
+            {galleryContent.sectionLabel}
           </span>
         </motion.div>
 
@@ -84,7 +74,7 @@ const GallerySection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-display text-4xl md:text-6xl tracking-tight mt-8"
         >
-            Gallery
+            {galleryContent.heading}
         </motion.h2>
 
         <motion.p
@@ -93,7 +83,7 @@ const GallerySection = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="text-muted-foreground font-body mt-4 text-sm mb-8"
         >
-          Scroll horizontally to explore →
+          {galleryContent.instructions}
         </motion.p>
       </div>
 
@@ -107,7 +97,7 @@ const GallerySection = () => {
         style={{ scrollBehavior: 'smooth' }}
       >
         {galleryItems.map((item, index) => (
-          <div key={item.id} className="flex-shrink-0 p-4">
+          <div key={item.image} className="flex-shrink-0 p-4">
             <motion.div
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -132,6 +122,7 @@ const GallerySection = () => {
                 <img
                   src={item.image}
                   alt={item.text}
+                  loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
 

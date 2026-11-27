@@ -1,24 +1,8 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import skillsContent from '@/content/skills.json';
 
-const coreSkills = [
-  'JavaScript',
-  'React',
-  'Python',
-  'Tailwind CSS',
-  'HTML',
-  'CSS',
-  'SQL',
-];
-
-const secondarySkills = [
-  'GSAP',
-  'Firebase',
-  'GitHub',
-  'Replit',
-  'Lovable',
-  'Figma',
-];
+const { coreSkills, secondarySkills } = skillsContent;
 
 const SkillsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -61,7 +45,7 @@ const SkillsSection = () => {
         className="mb-16"
       >
         <span className="text-xs tracking-[0.3em] text-muted-foreground font-body uppercase">
-          002 / Skills
+          {skillsContent.sectionLabel}
         </span>
       </motion.div>
 
@@ -72,7 +56,7 @@ const SkillsSection = () => {
         transition={{ duration: 0.6, delay: 0.1 }}
         className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-12 tracking-tight"
       >
-        Tech Stack
+        {skillsContent.heading}
       </motion.h2>
 
       {/* Core Skills */}

@@ -1,61 +1,24 @@
 import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, X, ExternalLink,Download, Image as ImageIcon } from 'lucide-react';
+import { ArrowUpRight, X, ExternalLink, Download } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import eventsContent from '@/content/events.json';
+import mockHackathon from '@/content/mock-hackathon-2026.json';
 
-interface EventItem {
-  id: number;
-  title: string;
-  category: string;
-  date: string;
-  poster: string;
-  description: string;
-  details: string;
-  registrationUrl: string;
-  galleryUrl: string;
-}
+type EventItem = (typeof eventsContent.events)[number];
 
-const events: EventItem[] = [
+const events = [
+  ...eventsContent.events,
   {
-    id: 1,
-    title: "TECH INAUGURATION",
-    category: "Club Launch",
-    date: "March 2026",
-    poster:
-      "/images/posters/ComingSoon.jpg",
-    description: "Official launch of Colossus Tech Club",
-    details:
-      "The official inauguration introducing the club vision, core team, roadmap, and upcoming technical initiatives.",
-    registrationUrl: "#",
-    galleryUrl: "#",
+    id: mockHackathon.id,
+    title: mockHackathon.title,
+    category: mockHackathon.category,
+    date: mockHackathon.date,
+    poster: `${mockHackathon.imageFolder}/${mockHackathon.photos[0].file}`,
+    description: mockHackathon.listingDescription,
+    path: mockHackathon.path,
   },
-  {
-    id: 2,
-    title: "FULL STACK WORKSHOP",
-    category: "Web Development",
-    date: "April 2026",
-    poster:
-      "/images/posters/ComingSoon.jpg",
-    description: "Hands-on real-world dev session",
-    details:
-      "A practical full-stack development workshop covering architecture, deployment, Git workflows, and collaborative coding.",
-    registrationUrl: "#",
-    galleryUrl: "#",
-  },
-  {
-    id: 3,
-    title: "AI INDUSTRY SESSION",
-    category: "Artificial Intelligence",
-    date: "May 2026",
-    poster:
-       "/images/posters/ComingSoon.jpg",
-    description: "Industry expert technical talk",
-    details:
-      "An expert-led session explaining how AI systems are built, deployed, and integrated into production software environments.",
-    registrationUrl: "#",
-    galleryUrl: "#",
-  }
 ];
-
 
 const EventsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -85,7 +48,7 @@ const EventsSection = () => {
         transition={{ duration: 0.6, delay: 0.1 }}
         className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight"
       >
-        Events
+        {eventsContent.heading}
       </motion.h2>
     </motion.div>
 
@@ -99,7 +62,7 @@ const EventsSection = () => {
           transition={{ duration: 0.8, delay: index * 0.2 }}
           onMouseEnter={() => setHoveredId(event.id)}
           onMouseLeave={() => setHoveredId(null)}
-          onClick={() => setSelectedEvent(event)}
+          onClick={'path' in event ? undefined : () => setSelectedEvent(event)}
           className="group relative cursor-pointer"
         >
           <motion.div
@@ -158,7 +121,14 @@ const EventsSection = () => {
                       hoveredId === event.id ? 'font-bold' : 'font-medium'
                     }`}
                   >
-                    {event.title}
+                    {'path' in event ? (
+                      <Link
+                        to={event.path}
+                        className="after:absolute after:inset-0 focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-offset-[-4px]"
+                      >
+                        {event.title}
+                      </Link>
+                    ) : event.title}
                   </h3>
 
                   <motion.p
@@ -234,7 +204,7 @@ const EventsSection = () => {
                 className="flex items-center gap-2 text-sm tracking-widest font-body hover:opacity-70 transition-opacity"
               >
                 <ExternalLink size={16} />
-                REGISTER
+                {eventsContent.registrationLabel}
               </a>
 
               <a
@@ -244,7 +214,7 @@ const EventsSection = () => {
                 className="flex items-center gap-2 text-sm tracking-widest font-body hover:opacity-70 transition-opacity"
               >
                 <Download size={16} />
-                Details PDF
+                {eventsContent.detailsLabel}
               </a>
             </div>
           </motion.div>

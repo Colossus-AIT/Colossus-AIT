@@ -1,28 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
+import quotesContent from '@/content/quotes.json';
 
-const quotes = [
-  {
-    text: "Sometimes life is going to hit you in the head with a brick. Don't lose faith.",
-    author: "Steve Jobs",
-  },
-  {
-    text: "Too many of us are not living our dreams because we are living our fears.",
-    author: "Les Brown",
-  },
-  {
-    text: "Everything has beauty, but not everyone sees it.",
-    author: "Confucius",
-  },
-  {
-    text: "Do not set yourself on fire to keep others warm.",
-    author: "Anonymous",
-  },
-  {
-    text: "Every new experience brings it own maturity and a greater clarity of vision.",
-    author: "Indira Gandhi",
-  },
-];
+const { quotes } = quotesContent;
 
 const QuotesSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -78,7 +58,7 @@ className="flex flex-col items-center pt-16 pb-16 px-6 md:px-12"
           className="mb-24"
         >
           <span className="text-xs tracking-[0.3em] text-muted-foreground font-body">
-            005 / QUOTES
+            {quotesContent.sectionLabel}
           </span>
         </motion.div>
 

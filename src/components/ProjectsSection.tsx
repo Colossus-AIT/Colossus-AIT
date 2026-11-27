@@ -1,6 +1,9 @@
 import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, X, Github, ExternalLink } from 'lucide-react';
+import projectsContent from '@/content/projects.json';
+
+const { projects } = projectsContent;
 
 interface Project {
   id: number;
@@ -13,81 +16,6 @@ interface Project {
   githubUrl: string;
   image: string;
 }
-
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "PROJECT ONE",
-    category: "Web Development",
-    year: "2026",
-    description: "A modern full-stack web application",
-    details:
-      "A scalable full-stack web application built with modern frameworks, featuring authentication, dynamic routing, and responsive UI.",
-    liveUrl: "#",
-    githubUrl: "#",
-    image:  "/images/posters/ComingSoon.jpg",
-  },
-  {
-    id: 2,
-    title: "PROJECT TWO",
-    category: "AI / Web Development",
-    year: "2025",
-    description: "An AI-powered productivity platform",
-    details:
-      "An AI-driven platform that optimizes workflows and enhances efficiency using intelligent automation.",
-    liveUrl: "#",
-    githubUrl: "#",
-    image:  "/images/posters/ComingSoon.jpg",
-  },
-  {
-    id: 3,
-    title: "PROJECT THREE",
-    category: "Game Development",
-    year: "2025",
-    description: "A real-time multiplayer browser game",
-    details:
-      "A real-time multiplayer browser game built with synchronized mechanics and immersive UI design.",
-    liveUrl: "#",
-    githubUrl: "#",
-    image:  "/images/posters/ComingSoon.jpg",
-  },
-  // {
-  //   id: 4,
-  //   title: "PROJECT FOUR",
-  //   category: "Mobile App",
-  //   year: "2024",
-  //   description: "A cross-platform mobile application",
-  //   details:
-  //     "A cross-platform mobile application focused on seamless user experience and cloud-based data storage.",
-  //   liveUrl: "#",
-  //   githubUrl: "#",
-  //   image:  "/images/posters/ComingSoon.jpg",
-  // },
-  // {
-  //   id: 5,
-  //   title: "PROJECT FIVE",
-  //   category: "Data Visualization",
-  //   year: "2024",
-  //   description: "An interactive analytics dashboard",
-  //   details:
-  //     "An interactive analytics dashboard with real-time visualization and optimized rendering.",
-  //   liveUrl: "#",
-  //   githubUrl: "#",
-  //   image:  "/images/posters/ComingSoon.jpg",
-  // },
-  // {
-  //   id: 6,
-  //   title: "PROJECT SIX",
-  //   category: "Full Stack Development",
-  //   year: "2023",
-  //   description: "A scalable SaaS-style web platform",
-  //   details:
-  //     "A scalable SaaS-style web platform featuring secure authentication and modular architecture.",
-  //   liveUrl: "#",
-  //   githubUrl: "#",
-  //   image: "/images/posters/ComingSoon.jpg",
-  // },
-];
 
 const ProjectsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -111,7 +39,7 @@ const ProjectsSection = () => {
           className="mb-6"
         >
           <span className="text-xs tracking-[0.3em] text-muted-foreground font-body">
-            003 / BUILD & BEYOND
+            {projectsContent.sectionLabel}
           </span>
         </motion.div>
 
@@ -122,7 +50,7 @@ const ProjectsSection = () => {
           transition={{ duration: 0.6 }}
           className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-12 tracking-tight"
         >
-          What We’ve Built
+          {projectsContent.heading}
         </motion.h2>
 
         {/* Grid */}
@@ -256,7 +184,7 @@ const ProjectsSection = () => {
                     className="flex items-center gap-2 text-sm tracking-widest hover:opacity-70"
                   >
                     <ExternalLink size={16} />
-                    LIVE
+                    {projectsContent.liveLabel}
                   </a>
                   <a
                     href={selectedProject.githubUrl}
@@ -265,7 +193,7 @@ const ProjectsSection = () => {
                     className="flex items-center gap-2 text-sm tracking-widest hover:opacity-70"
                   >
                     <Github size={16} />
-                    GITHUB
+                    {projectsContent.githubLabel}
                   </a>
                 </div>
               </motion.div>

@@ -1,0 +1,41 @@
+{
+  "id": 3,
+  "path": "/events/mock-hackathon-2026",
+  "imageFolder": "/images/events/mock-hackathon-2026",
+  "title": "Mock Hackathon 2026",
+  "organizer": "Colossus Tech Club",
+  "category": "Hackathon",
+  "date": "November 2026",
+  "listingDescription": "Student teams tackled real-world challenges through collaboration and coding.",
+  "description": "A hands-on technical event that brought together student teams to solve real-world challenges through innovation, collaboration and coding.",
+  "backLabel": "All events",
+  "overviewHeading": "About the event",
+  "overview": "The Mock Hackathon 2026 provided students with an opportunity to experience a hackathon environment. Participants worked in teams, explored problem statements across multiple technical domains, and developed solutions through creativity, collaboration and technical skills.",
+  "highlightsHeading": "Activities and achievements",
+  "highlights": [
+    {
+      "title": "Exploring the challenges",
+      "description": "Teams examined problem statements across multiple technical domains and identified opportunities to build practical solutions."
+    },
+    {
+      "title": "Building as a team",
+      "description": "Students combined their technical skills and ideas to develop solutions collaboratively."
+    },
+    {
+      "title": "Practicing rapid problem-solving",
+      "description": "The event encouraged practical learning, teamwork and critical thinking while giving participants first-hand experience of a hackathon."
+    }
+  ],
+  "galleryHeading": "Event in photos",
+  "photos": [
+    { "file": "01-opening-address.png", "caption": "Opening address" },
+    { "file": "02-auditorium-audience.png", "caption": "Audience at the opening" },
+    { "file": "03-project-presentation.png", "caption": "Student project presentation" },
+    { "file": "04-team-on-stage.png", "caption": "Team photo on stage" },
+    { "file": "05-group-photo.png", "caption": "Hackathon group photo" },
+    { "file": "06-on-stage-recognition.png", "caption": "On-stage recognition" },
+    { "file": "07-podium-remarks.png", "caption": "Remarks from the podium" },
+    { "file": "08-stage-address.png", "caption": "Address to participants" },
+    { "file": "09-auditorium-stage.png", "caption": "View from the auditorium" }
+  ]
+}

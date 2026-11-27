@@ -8,6 +8,8 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import MockHackathon from "./pages/MockHackathon";
+import mockHackathon from "@/content/mock-hackathon-2026.json";
 import EventsSection from "./components/EventsSection";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
@@ -81,6 +83,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/events" element={<EventsSection />} />
+                <Route path={mockHackathon.path} element={<MockHackathon />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
