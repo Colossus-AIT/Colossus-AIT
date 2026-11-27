@@ -1,13 +1,12 @@
 import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, X, ExternalLink, Download } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import eventsContent from '@/content/events.json';
 import mockHackathon from '@/content/mock-hackathon-2026.json';
 
 type EventItem = (typeof eventsContent.events)[number];
 
-const events = [
+const events: EventItem[] = [
   ...eventsContent.events,
   {
     id: mockHackathon.id,
@@ -17,7 +16,9 @@ const events = [
     date: mockHackathon.date,
     poster: `${mockHackathon.imageFolder}/${mockHackathon.photos[0].file}`,
     description: mockHackathon.listingDescription,
-    path: mockHackathon.path,
+    details: mockHackathon.description,
+    registrationUrl: '',
+    galleryUrl: mockHackathon.reportUrl,
   },
 ];
 
@@ -76,7 +77,7 @@ const EventsSection = () => {
               transition={{ duration: 0.8, delay: index * 0.2 }}
               onMouseEnter={() => setHoveredId(event.id)}
               onMouseLeave={() => setHoveredId(null)}
-              onClick={'path' in event ? undefined : () => setSelectedEvent(event)}
+              onClick={() => setSelectedEvent(event)}
               className="group relative cursor-pointer"
             >
               <motion.div
@@ -135,14 +136,13 @@ const EventsSection = () => {
                           hoveredId === event.id ? 'font-bold' : 'font-medium'
                         }`}
                       >
-                        {'path' in event ? (
-                          <Link
-                            to={event.path}
-                            className="after:absolute after:inset-0 focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-offset-[-4px]"
-                          >
-                            {event.title}
-                          </Link>
-                        ) : event.title}
+                        <button
+                          type="button"
+                          aria-haspopup="dialog"
+                          className="text-left after:absolute after:inset-0 focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-offset-[-4px]"
+                        >
+                          {event.title}
+                        </button>
                       </h4>
 
                       <motion.p
@@ -186,6 +186,9 @@ const EventsSection = () => {
           onClick={() => setSelectedEvent(null)}
         >
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="event-dialog-title"
             initial={{ opacity: 0, scale: 0.9, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 50 }}
@@ -194,6 +197,8 @@ const EventsSection = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <button
+              type="button"
+              aria-label="Close event details"
               onClick={() => setSelectedEvent(null)}
               className="absolute top-4 right-4 p-2 hover:opacity-60 transition-opacity"
             >
@@ -204,7 +209,7 @@ const EventsSection = () => {
               {selectedEvent.category} · {selectedEvent.date}
             </span>
 
-            <h2 className="font-display text-2xl sm:text-3xl md:text-5xl tracking-tight font-bold mb-6 break-words">
+            <h2 id="event-dialog-title" className="font-display text-2xl sm:text-3xl md:text-5xl tracking-tight font-bold mb-6 break-words">
               {selectedEvent.title}
             </h2>
 
@@ -212,7 +217,7 @@ const EventsSection = () => {
               {selectedEvent.details}
             </p>
 
-            <div className="flex items-center gap-8">
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
               {selectedEvent.registrationUrl && selectedEvent.registrationUrl !== "#" && <a
                 href={selectedEvent.registrationUrl}
                 target="_blank"
@@ -221,6 +226,16 @@ const EventsSection = () => {
               >
                 <ExternalLink size={16} />
                 {eventsContent.registrationLabel}
+              </a>}
+
+              {selectedEvent.galleryUrl && selectedEvent.galleryUrl !== "#" && <a
+                href={selectedEvent.galleryUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm tracking-widest font-body hover:opacity-70 transition-opacity"
+              >
+                <ExternalLink size={16} />
+                {eventsContent.viewReportLabel}
               </a>}
 
               {selectedEvent.galleryUrl && selectedEvent.galleryUrl !== "#" && <a

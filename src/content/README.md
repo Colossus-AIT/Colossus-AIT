@@ -9,7 +9,7 @@ Open the file for the section you want to update. Change the words or links insi
 | The posters in the Updates carousel | [updates.json](updates.json) |
 | Project cards, descriptions, and links | [projects.json](projects.json) |
 | Event posters, dates, registration links, or details PDFs | [events.json](events.json) |
-| The Mock Hackathon showcase, captions, and photo filenames | [mock-hackathon-2026.json](mock-hackathon-2026.json) |
+| The Mock Hackathon event, report link, captions, and photo filenames | [mock-hackathon-2026.json](mock-hackathon-2026.json) |
 | Gallery photos and captions | [gallery.json](gallery.json) |
 | Quotes and their authors | [quotes.json](quotes.json) |
 | The site logo or menu labels and links | [navigation.json](navigation.json) |
@@ -38,4 +38,4 @@ In the contact file, change the `href` value under the relevant social network t
 
 ## Replace the Mock Hackathon photos
 
-Open [public/images/events/mock-hackathon-2026](../../public/images/events/mock-hackathon-2026) to find the event photos. To add a photo, put it in that folder and add its filename and caption to the `photos` list in [mock-hackathon-2026.json](mock-hackathon-2026.json). The list controls the order and captions on both the event page and the beginning of the home gallery. The first photo also appears on the Events listing. Keep at least one entry in the list.
+Open [public/images/events/mock-hackathon-2026](../../public/images/events/mock-hackathon-2026) to find the event photos. To add a photo, put it in that folder and add its filename and caption to the `photos` list in [mock-hackathon-2026.json](mock-hackathon-2026.json). The list controls the order and captions at the beginning of the home gallery. The first photo also appears on the Events listing. Keep at least one entry in the list. The PDF is stored separately at the path in `reportUrl`.

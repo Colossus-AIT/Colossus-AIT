@@ -61,5 +61,6 @@
     }
   },
   "registrationLabel": "REGISTER",
-  "detailsLabel": "Details PDF"
+  "viewReportLabel": "View PDF",
+  "detailsLabel": "Download PDF"
 }
