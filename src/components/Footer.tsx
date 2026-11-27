@@ -20,7 +20,7 @@ const Footer = () => {
         {/* Right */}
         <div className="flex items-center gap-8">
           <motion.a
-            href="#hero"
+            href="#top"
             whileHover={{ y: -2 }}
             className="text-xs tracking-widest text-muted-foreground hover:text-foreground transition-colors font-body"
           >

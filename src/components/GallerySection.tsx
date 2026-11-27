@@ -24,11 +24,12 @@ const GallerySection = () => {
     if (!scrollContainer) return;
 
     const handleScroll = () => {
-      const scrollLeft = scrollContainer.scrollLeft;
-      const itemWidth = 280 + 16;
-      const newIndex = Math.round(scrollLeft / itemWidth);
+      const [first, second] = scrollContainer.children;
+      if (!first || !second) return;
+      const itemWidth = second.getBoundingClientRect().left - first.getBoundingClientRect().left;
+      const newIndex = Math.round(scrollContainer.scrollLeft / itemWidth);
       setActiveIndex(
-        Math.max(0, Math.min(newIndex + 1, galleryItems.length - 1))
+        Math.max(0, Math.min(newIndex, galleryItems.length - 1))
       );
     };
 

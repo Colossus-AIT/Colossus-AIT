@@ -22,5 +22,6 @@
     }
   ],
   "logo": "/logos/Colossus_logo_png.png",
-  "logoAlt": "Colossus Logo"
+  "logoAlt": "Colossus Logo",
+  "darkLogo": "/logos/Colossus-logo-white.png"
 }

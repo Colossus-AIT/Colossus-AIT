@@ -197,7 +197,7 @@ const EventsSection = () => {
             </p>
 
             <div className="flex items-center gap-8">
-              <a
+              {selectedEvent.registrationUrl && selectedEvent.registrationUrl !== "#" && <a
                 href={selectedEvent.registrationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -205,17 +205,16 @@ const EventsSection = () => {
               >
                 <ExternalLink size={16} />
                 {eventsContent.registrationLabel}
-              </a>
+              </a>}
 
-              <a
+              {selectedEvent.galleryUrl && selectedEvent.galleryUrl !== "#" && <a
                 href={selectedEvent.galleryUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                download
                 className="flex items-center gap-2 text-sm tracking-widest font-body hover:opacity-70 transition-opacity"
               >
                 <Download size={16} />
                 {eventsContent.detailsLabel}
-              </a>
+              </a>}
             </div>
           </motion.div>
         </motion.div>

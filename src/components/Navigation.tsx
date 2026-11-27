@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Moon, Sun, Volume2, VolumeX } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import PillNav from './PillNav';
 import navigationContent from '@/content/navigation.json';
@@ -13,9 +13,7 @@ interface NavigationProps {
 }
 
 const Navigation = ({ onThemeToggle, isDark }: NavigationProps) => {
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -25,31 +23,6 @@ const Navigation = ({ onThemeToggle, isDark }: NavigationProps) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    audioRef.current = new Audio('/audio/background.mp3');
-    audioRef.current.loop = true;
-    audioRef.current.volume = 0.3;
-
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
-  }, []);
-
-  const toggleMusic = () => {
-    if (!audioRef.current) return;
-
-    if (isMusicPlaying) {
-      audioRef.current.pause();
-      setIsMusicPlaying(false);
-    } else {
-      audioRef.current.play().catch(() => {});
-      setIsMusicPlaying(true);
-    }
-  };
 
   return (
     
@@ -65,12 +38,12 @@ className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 flex items-center
     >
 <div className="w-full flex items-center justify-between">
         <motion.a
-            href="#hero"
+            href="/#hero"
             className="flex items-center"
             whileHover={{ scale: 1.05 }}
           >
             <img
-              src={navigationContent.logo}
+              src={isDark ? navigationContent.darkLogo : navigationContent.logo}
               alt={navigationContent.logoAlt}
               className="h-8 w-auto object-contain"
             />
@@ -81,7 +54,7 @@ className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 flex items-center
         logo={navigationContent.logo}
         logoAlt={navigationContent.logoAlt}
         items={navItems}
-        activeHref={location.pathname}
+        activeHref={location.pathname.startsWith('/events/') ? '/events' : location.pathname}
         baseColor="transparent"             // keep base fixed
         pillColor="transparent"             // keep pill background fixed
         pillTextColor={isDark ? '#ffffff' : '#000000'}

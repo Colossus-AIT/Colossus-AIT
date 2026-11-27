@@ -2,14 +2,14 @@
   "events": [
     {
       "id": 1,
-      "title": "TECH INAUGURATION",
+      "title": "CLUB INAUGURATION",
       "category": "Club Launch",
-      "date": "March 2026",
-      "poster": "/images/posters/ComingSoon.jpg",
+      "date": "25 March 2026",
+      "poster": "/images/gallery/inaug-11.jpeg",
       "description": "Official launch of Colossus Tech Club",
       "details": "The official inauguration introducing the club vision, core team, roadmap, and upcoming technical initiatives.",
       "registrationUrl": "#",
-      "galleryUrl": "#"
+      "galleryUrl": "/pdf/inaug-report-pdf.pdf"
     },
     {
       "id": 2,
