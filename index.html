@@ -2,6 +2,15 @@
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      try {
+        if (localStorage.getItem("theme") === "light") {
+          document.documentElement.classList.replace("dark", "light");
+        }
+      } catch {
+        // The default theme works when browser storage is unavailable.
+      }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Colossus Club | AIT</title>
     <link rel="icon" type="image/png" href="/logos/Colossus-logo-white.png" />

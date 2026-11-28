@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Moon, Sun } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import PillNav from './PillNav';
@@ -8,7 +8,7 @@ import navigationContent from '@/content/navigation.json';
 const { navItems } = navigationContent;
 
 interface NavigationProps {
-  onThemeToggle: () => void;
+  onThemeToggle: (button: HTMLButtonElement) => void;
   isDark: boolean;
 }
 
@@ -43,9 +43,14 @@ className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 flex items-center
             whileHover={{ scale: 1.05 }}
           >
             <img
-              src={isDark ? navigationContent.darkLogo : navigationContent.logo}
+              src={navigationContent.darkLogo}
               alt={navigationContent.logoAlt}
-              className="h-8 w-auto object-contain"
+              className={`h-8 w-auto object-contain ${isDark ? '' : 'hidden'}`}
+            />
+            <img
+              src={navigationContent.logo}
+              alt={navigationContent.logoAlt}
+              className={`h-8 w-auto object-contain ${isDark ? 'hidden' : ''}`}
             />
           </motion.a>
 
@@ -68,35 +73,13 @@ className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 flex items-center
 
         {/* Theme Toggle */}
         <motion.button
-          onClick={onThemeToggle}
+          onClick={event => onThemeToggle(event.currentTarget)}
           className="relative p-2 transition-all duration-300 hover:opacity-60"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
         >
-          <AnimatePresence mode="wait">
-            {isDark ? (
-              <motion.div
-                key="dark"
-                initial={{ opacity: 0, rotate: -90 }}
-                animate={{ opacity: 1, rotate: 0 }}
-                exit={{ opacity: 0, rotate: 90 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Moon size={18} strokeWidth={1.5} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="light"
-                initial={{ opacity: 0, rotate: -90 }}
-                animate={{ opacity: 1, rotate: 0 }}
-                exit={{ opacity: 0, rotate: 90 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Sun size={18} strokeWidth={1.5} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {isDark ? <Moon size={18} strokeWidth={1.5} /> : <Sun size={18} strokeWidth={1.5} />}
         </motion.button>
       </div>
     </div>

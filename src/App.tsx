@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { flushSync } from "react-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -44,25 +45,49 @@ const ScrollToTop = () => {
 };
 
 const App = () => {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(() => !document.documentElement.classList.contains("light"));
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "light") {
-      setIsDark(false);
-      document.documentElement.classList.add("light");
-    }
-  }, []);
+  const toggleTheme = (button: HTMLButtonElement) => {
+    const root = document.documentElement;
+    if (root.hasAttribute("data-theme-transition")) return;
 
-  const toggleTheme = () => {
-    if (isDark) {
-      document.documentElement.classList.add("light");
-      localStorage.setItem("theme", "light");
-    } else {
-      document.documentElement.classList.remove("light");
-      localStorage.setItem("theme", "dark");
+    const applyTheme = () => {
+      root.classList.toggle("light", isDark);
+      root.classList.toggle("dark", !isDark);
+      setIsDark(!isDark);
+      try {
+        localStorage.setItem("theme", isDark ? "light" : "dark");
+      } catch {
+        // The selected theme still applies to the current page.
+      }
+    };
+
+    if (!document.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      applyTheme();
+      return;
     }
-    setIsDark(!isDark);
+
+    const bounds = button.getBoundingClientRect();
+    const x = bounds.left + bounds.width / 2;
+    const y = bounds.top + bounds.height / 2;
+    const radius = Math.ceil(Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
+    ));
+
+    root.style.setProperty("--theme-origin-x", `${x}px`);
+    root.style.setProperty("--theme-origin-y", `${y}px`);
+    root.style.setProperty("--theme-radius", `${radius}px`);
+    root.setAttribute("data-theme-transition", "");
+
+    const transition = document.startViewTransition(() => flushSync(applyTheme));
+    const cleanup = () => {
+      root.removeAttribute("data-theme-transition");
+      root.style.removeProperty("--theme-origin-x");
+      root.style.removeProperty("--theme-origin-y");
+      root.style.removeProperty("--theme-radius");
+    };
+    void transition.finished.then(cleanup, cleanup);
   };
 
   return (
