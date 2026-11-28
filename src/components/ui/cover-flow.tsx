@@ -36,6 +36,8 @@ export interface CoverFlowProps {
   loop?: boolean;
   /** Colour of the rounded stage the covers sit on, and of the floor fade. */
   stageColor?: string;
+  /** Show the tinted stage and photo backdrop behind the covers. */
+  showBackdrop?: boolean;
   /** Page colour around the stage. */
   pageColor?: string;
   /** Focus ring colour. */
@@ -283,6 +285,7 @@ export function CoverFlow({
   interval = 3.5,
   loop = true,
   stageColor = "#010101",
+  showBackdrop = true,
   pageColor = "#f5f5f5",
   accent = "#7fb2ff",
   captionColor = "#ffffff",
@@ -362,7 +365,7 @@ export function CoverFlow({
 
   /* Backdrops use the existing photographs. */
   React.useEffect(() => {
-    if (!layout) return;
+    if (!layout || !showBackdrop) return;
     let active = true;
     items.forEach((item, i) => {
       const backdrop = backArtRefs.current[i];
@@ -375,7 +378,7 @@ export function CoverFlow({
       image.src = item.src;
     });
     return () => { active = false; };
-  }, [items, layout]);
+  }, [items, layout, showBackdrop]);
 
   /* ---------- painting one frame ---------- */
   const paint = React.useCallback((pos: number, t: number) => {
@@ -759,7 +762,8 @@ export function CoverFlow({
               top: L.sy,
               width: L.sw,
               height: L.sh,
-              background: stageColor,
+              background: showBackdrop ? stageColor : "transparent",
+              maskImage: showBackdrop ? undefined : "linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)",
               clipPath: `path("${squircle(L.sw, L.sh, STAGE_CORNER * L.sh, STAGE_CORNER_N)}")`,
               touchAction: "pan-y",
               userSelect: "none",
@@ -769,7 +773,7 @@ export function CoverFlow({
             }}
           >
             {/* blurred, dimmed copy of the centre art behind everything */}
-            <div aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+            {showBackdrop && <div aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
               {items.map((it, i) => (
                 <div
                   key={i}
@@ -801,7 +805,7 @@ export function CoverFlow({
               />
               <div style={{ position: "absolute", inset: 0, zIndex: 3, background: `linear-gradient(90deg, color-mix(in srgb, ${stageColor} 30%, transparent) 0%, transparent 32%, transparent 62%, color-mix(in srgb, ${stageColor} 45%, transparent) 100%)` }} />
               <div style={{ position: "absolute", inset: 0, zIndex: 4, background: `linear-gradient(180deg, ${FLOOR.map(([o, a]) => `color-mix(in srgb, ${stageColor} ${a}%, transparent) ${o}%`).join(", ")})` }} />
-            </div>
+            </div>}
             {/* covers */}
             <div style={{ position: "absolute", inset: 0 }}>
               {items.map((it, i) => (
@@ -830,7 +834,7 @@ export function CoverFlow({
               ))}
             </div>
             {/* the far left edge sinks into the stage */}
-            <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 2000, pointerEvents: "none", background: `linear-gradient(90deg, ${EDGE.map(([o, a]) => `color-mix(in srgb, ${stageColor} ${a}%, transparent) ${o}%`).join(", ")})` }} />
+            {showBackdrop && <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 2000, pointerEvents: "none", background: `linear-gradient(90deg, ${EDGE.map(([o, a]) => `color-mix(in srgb, ${stageColor} ${a}%, transparent) ${o}%`).join(", ")})` }} />}
             {showCaptions && (
               <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 2001, pointerEvents: "none" }}>
                 {items.map((it, i) => (

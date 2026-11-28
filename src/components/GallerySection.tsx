@@ -83,7 +83,8 @@ const GallerySection = () => {
           items={covers}
           defaultIndex={0}
           ariaLabel="Gallery cover flow"
-          stageColor="hsl(var(--card))"
+          stageColor="hsl(var(--background))"
+          showBackdrop={false}
           pageColor="transparent"
           accent="hsl(var(--ring))"
           captionColor="#fff"
