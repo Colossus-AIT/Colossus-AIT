@@ -27,6 +27,8 @@ Open the file for the section you want to update. Change the words or links insi
 
 Entries appear in the order listed. Keep at least one entry in the Quotes list.
 
+For projects, `liveUrl` controls the Live button and `githubUrl` controls the GitHub button. To enable Download Report, put a PDF in `public/pdf` and set `reportUrl` to its path, such as `/pdf/project-report.pdf`. A blank or omitted value, or a `#` placeholder, disables that button.
+
 ## Add images or PDFs
 
 Set an event’s `status` in its content file to `upcoming` or `completed` to choose which section it appears in.

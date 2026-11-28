@@ -11,6 +11,7 @@
       "details": "A scalable full-stack web application built with modern frameworks, featuring authentication, dynamic routing, and responsive UI.",
       "liveUrl": "#",
       "githubUrl": "#",
+      "reportUrl": "",
       "image": "/images/posters/ComingSoon.jpg"
     },
     {
@@ -22,6 +23,7 @@
       "details": "An AI-driven platform that optimizes workflows and enhances efficiency using intelligent automation.",
       "liveUrl": "#",
       "githubUrl": "#",
+      "reportUrl": "",
       "image": "/images/posters/ComingSoon.jpg"
     },
     {
@@ -33,6 +35,7 @@
       "details": "A real-time multiplayer browser game built with synchronized mechanics and immersive UI design.",
       "liveUrl": "#",
       "githubUrl": "#",
+      "reportUrl": "",
       "image": "/images/posters/ComingSoon.jpg"
     }
   ]

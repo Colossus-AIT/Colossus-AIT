@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, X, Github, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, Download, X, Github, ExternalLink, type LucideIcon } from 'lucide-react';
 import projectsContent from '@/content/projects.json';
 
 interface Project {
@@ -10,14 +10,48 @@ interface Project {
   year: string;
   description: string;
   details: string;
-  liveUrl: string;
-  githubUrl: string;
+  liveUrl?: string;
+  githubUrl?: string;
+  reportUrl?: string;
   image: string;
 }
 
 interface ProjectsSectionProps {
-  content?: Pick<typeof projectsContent, 'projects' | 'sectionLabel' | 'heading'>;
+  content?: {
+    projects: Project[];
+    sectionLabel: string;
+    heading: string;
+  };
 }
+
+interface ProjectActionProps {
+  url?: string;
+  label: string;
+  icon: LucideIcon;
+  download?: boolean;
+}
+
+const ProjectAction = ({ url, label, icon: Icon, download = false }: ProjectActionProps) => {
+  const href = url?.trim();
+  const className = 'flex items-center gap-2 text-sm tracking-widest';
+  const contents = <><Icon size={16} aria-hidden="true" />{label}</>;
+
+  if (!href || href.startsWith('#')) {
+    return <button type="button" disabled className={`${className} cursor-not-allowed opacity-40`}>{contents}</button>;
+  }
+
+  return (
+    <a
+      href={href}
+      download={download}
+      target={download ? undefined : '_blank'}
+      rel={download ? undefined : 'noopener noreferrer'}
+      className={`${className} hover:opacity-70`}
+    >
+      {contents}
+    </a>
+  );
+};
 
 const ProjectsSection = ({ content = projectsContent }: ProjectsSectionProps) => {
   const { projects, sectionLabel, heading } = content;
@@ -179,25 +213,10 @@ const ProjectsSection = ({ content = projectsContent }: ProjectsSectionProps) =>
                   {selectedProject.details}
                 </p>
 
-                <div className="flex items-center gap-8">
-                  <a
-                    href={selectedProject.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm tracking-widest hover:opacity-70"
-                  >
-                    <ExternalLink size={16} />
-                    {projectsContent.liveLabel}
-                  </a>
-                  <a
-                    href={selectedProject.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm tracking-widest hover:opacity-70"
-                  >
-                    <Github size={16} />
-                    {projectsContent.githubLabel}
-                  </a>
+                <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+                  <ProjectAction url={selectedProject.liveUrl} label={projectsContent.liveLabel} icon={ExternalLink} />
+                  <ProjectAction url={selectedProject.githubUrl} label={projectsContent.githubLabel} icon={Github} />
+                  <ProjectAction url={selectedProject.reportUrl} label={projectsContent.reportLabel} icon={Download} download />
                 </div>
               </motion.div>
             </motion.div>
