@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import galleryContent from '@/content/gallery.json';
@@ -19,6 +19,7 @@ const GallerySection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const reduceMotion = useReducedMotion();
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -184,7 +185,7 @@ const GallerySection = () => {
       <Dialog open={isViewerOpen} onOpenChange={setIsViewerOpen}>
         <DialogContent
           aria-describedby={undefined}
-          className="max-h-[94dvh] w-[calc(100%-1rem)] max-w-5xl gap-3 overflow-auto p-3 motion-reduce:animate-none sm:w-[calc(100%-2rem)] sm:gap-4 sm:p-6"
+          className="max-h-[94dvh] w-[calc(100%-1rem)] max-w-[calc(68dvh+10rem)] gap-3 overflow-auto p-3 motion-reduce:animate-none sm:w-[calc(100%-2rem)] sm:gap-4 sm:p-6"
           onCloseAutoFocus={event => {
             event.preventDefault();
             viewerTrigger.current?.focus({ preventScroll: true });
@@ -203,35 +204,48 @@ const GallerySection = () => {
             <button type="button" aria-label="Previous photo" onClick={() => movePhoto(-1)} className={viewerArrowClass}>
               <ChevronLeft size={24} aria-hidden="true" />
             </button>
-            <div className="overflow-hidden rounded-lg border border-border bg-card">
-              <img
-                src={selectedPhoto.image}
-                alt={selectedPhoto.text}
-                className="h-[56dvh] w-full object-contain sm:h-[62dvh]"
-              />
+            <div className="relative aspect-square max-h-[68dvh] overflow-hidden rounded-xl border border-border bg-card">
+              <div className="absolute inset-0 bottom-14 overflow-hidden">
+                <AnimatePresence initial={false}>
+                  <motion.img
+                    key={selectedPhoto.image}
+                    src={selectedPhoto.image}
+                    alt={selectedPhoto.text}
+                    className="absolute inset-0 h-full w-full bg-card object-contain"
+                    initial={reduceMotion ? false : { clipPath: 'circle(0% at 50% 50%)' }}
+                    animate={{ clipPath: 'circle(75% at 50% 50%)', zIndex: 1 }}
+                    exit={{ zIndex: 0, opacity: 0.99 }}
+                    transition={{
+                      duration: reduceMotion ? 0 : 0.42,
+                      ease: 'easeInOut',
+                      zIndex: { duration: 0 },
+                    }}
+                  />
+                </AnimatePresence>
+              </div>
+              <div data-gallery-thumbnails role="group" aria-label="Gallery thumbnails" className="absolute inset-x-0 bottom-0 z-10 overflow-x-auto scrollbar-hide bg-background/90">
+                <div className="mx-auto flex w-max items-center gap-1.5 px-2 py-2 sm:gap-2">
+                  {galleryItems.map((item, index) => (
+                    <button
+                      key={item.image}
+                      ref={index === selectedIndex ? centerThumbnail : undefined}
+                      type="button"
+                      aria-label={`Photo ${index + 1}: ${item.text}`}
+                      aria-current={index === selectedIndex ? 'true' : undefined}
+                      onClick={() => setSelectedIndex(index)}
+                      className={`size-10 shrink-0 overflow-hidden rounded-full border-2 bg-muted p-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                        index === selectedIndex ? 'border-foreground' : 'border-border hover:border-muted-foreground'
+                      }`}
+                    >
+                      <img src={item.image} alt="" loading="lazy" className="h-full w-full rounded-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
             <button type="button" aria-label="Next photo" onClick={() => movePhoto(1)} className={viewerArrowClass}>
               <ChevronRight size={24} aria-hidden="true" />
             </button>
-          </div>
-          <div data-gallery-thumbnails role="group" aria-label="Gallery thumbnails" className="min-w-0 overflow-x-auto">
-            <div className="mx-auto flex w-max items-center gap-2 px-2 py-2">
-              {galleryItems.map((item, index) => (
-                <button
-                  key={item.image}
-                  ref={index === selectedIndex ? centerThumbnail : undefined}
-                  type="button"
-                  aria-label={`Photo ${index + 1}: ${item.text}`}
-                  aria-current={index === selectedIndex ? 'true' : undefined}
-                  onClick={() => setSelectedIndex(index)}
-                  className={`size-11 shrink-0 overflow-hidden rounded-full border-2 bg-muted p-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:size-12 ${
-                    index === selectedIndex ? 'border-foreground' : 'border-border hover:border-muted-foreground'
-                  }`}
-                >
-                  <img src={item.image} alt="" loading="lazy" className="h-full w-full rounded-full object-cover" />
-                </button>
-              ))}
-            </div>
           </div>
           <p className="text-center text-sm tabular-nums text-muted-foreground">{selectedIndex + 1} / {galleryItems.length}</p>
         </DialogContent>
