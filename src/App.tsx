@@ -9,6 +9,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Projects from "./pages/Projects";
 import mockHackathon from "@/content/mock-hackathon-2026.json";
 import EventsSection from "./components/EventsSection";
 import Navigation from "./components/Navigation";
@@ -81,6 +82,7 @@ const App = () => {
             <main className="pt-24">
               <Routes>
                 <Route path="/" element={<Index />} />
+                <Route path="/projects" element={<Projects />} />
                 <Route path="/events" element={<EventsSection />} />
                 <Route path={mockHackathon.path} element={<Navigate to="/events" replace />} />
                 <Route path="*" element={<NotFound />} />

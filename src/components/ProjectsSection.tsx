@@ -3,8 +3,6 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, X, Github, ExternalLink } from 'lucide-react';
 import projectsContent from '@/content/projects.json';
 
-const { projects } = projectsContent;
-
 interface Project {
   id: number;
   title: string;
@@ -17,7 +15,12 @@ interface Project {
   image: string;
 }
 
-const ProjectsSection = () => {
+interface ProjectsSectionProps {
+  content?: Pick<typeof projectsContent, 'projects' | 'sectionLabel' | 'heading'>;
+}
+
+const ProjectsSection = ({ content = projectsContent }: ProjectsSectionProps) => {
+  const { projects, sectionLabel, heading } = content;
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -39,7 +42,7 @@ const ProjectsSection = () => {
           className="mb-6"
         >
           <span className="text-xs tracking-[0.3em] text-muted-foreground font-body">
-            {projectsContent.sectionLabel}
+            {sectionLabel}
           </span>
         </motion.div>
 
@@ -50,7 +53,7 @@ const ProjectsSection = () => {
           transition={{ duration: 0.6 }}
           className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-12 tracking-tight"
         >
-          {projectsContent.heading}
+          {heading}
         </motion.h2>
 
         {/* Grid */}

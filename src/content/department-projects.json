@@ -1,0 +1,39 @@
+{
+  "sectionLabel": "SAMPLE PROJECT LISTINGS",
+  "heading": "Department Projects",
+  "projects": [
+    {
+      "id": 1,
+      "title": "PROJECT ONE",
+      "category": "Web Development",
+      "year": "2026",
+      "description": "A modern full-stack web application",
+      "details": "A scalable full-stack web application built with modern frameworks, featuring authentication, dynamic routing, and responsive UI.",
+      "liveUrl": "#",
+      "githubUrl": "#",
+      "image": "/images/posters/ComingSoon.jpg"
+    },
+    {
+      "id": 2,
+      "title": "PROJECT TWO",
+      "category": "AI / Web Development",
+      "year": "2025",
+      "description": "An AI-powered productivity platform",
+      "details": "An AI-driven platform that optimizes workflows and enhances efficiency using intelligent automation.",
+      "liveUrl": "#",
+      "githubUrl": "#",
+      "image": "/images/posters/ComingSoon.jpg"
+    },
+    {
+      "id": 3,
+      "title": "PROJECT THREE",
+      "category": "Game Development",
+      "year": "2025",
+      "description": "A real-time multiplayer browser game",
+      "details": "A real-time multiplayer browser game built with synchronized mechanics and immersive UI design.",
+      "liveUrl": "#",
+      "githubUrl": "#",
+      "image": "/images/posters/ComingSoon.jpg"
+    }
+  ]
+}

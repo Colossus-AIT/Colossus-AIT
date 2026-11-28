@@ -7,7 +7,8 @@ Open the file for the section you want to update. Change the words or links insi
 | The year, title, or tagline at the top of the home page | [hero.json](hero.json) |
 | The club introduction, focus, location, or status | [about.json](about.json) |
 | The posters in the Updates carousel | [updates.json](updates.json) |
-| Project cards, descriptions, and links | [projects.json](projects.json) |
+| Project cards featured on the home page | [projects.json](projects.json) |
+| Project cards on the department Projects page | [department-projects.json](department-projects.json) |
 | Event posters, dates, registration links, or details PDFs | [events.json](events.json) |
 | The Mock Hackathon event, report link, captions, and photo filenames | [mock-hackathon-2026.json](mock-hackathon-2026.json) |
 | Gallery photos and captions | [gallery.json](gallery.json) |
