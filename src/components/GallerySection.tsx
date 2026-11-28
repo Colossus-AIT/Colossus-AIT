@@ -117,11 +117,8 @@ const GallerySection = () => {
           <DialogTitle aria-live="polite" className="pr-8 text-base">
             {selectedPhoto.text}
           </DialogTitle>
-          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 sm:gap-4">
-            <button type="button" aria-label="Previous photo" onClick={() => movePhoto(-1)} className={viewerArrowClass}>
-              <ChevronLeft size={24} aria-hidden="true" />
-            </button>
-            <div className="relative aspect-square max-h-[68dvh] overflow-hidden rounded-xl border border-border bg-card">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:gap-4">
+            <div className="relative col-span-3 col-start-1 row-start-1 h-[min(68dvh,135vw)] overflow-hidden rounded-xl border border-border bg-card sm:col-span-1 sm:col-start-2 sm:aspect-square sm:h-auto sm:max-h-[68dvh]">
               <div className="absolute inset-0 bottom-14 overflow-hidden">
                 <AnimatePresence initial={false}>
                   <motion.img
@@ -160,11 +157,14 @@ const GallerySection = () => {
                 </div>
               </div>
             </div>
-            <button type="button" aria-label="Next photo" onClick={() => movePhoto(1)} className={viewerArrowClass}>
+            <button type="button" aria-label="Previous photo" onClick={() => movePhoto(-1)} className={`${viewerArrowClass} col-start-1 row-start-2 justify-self-start sm:row-start-1`}>
+              <ChevronLeft size={24} aria-hidden="true" />
+            </button>
+            <p className="col-start-2 row-start-2 text-center text-sm tabular-nums text-muted-foreground sm:col-span-3 sm:col-start-1">{selectedIndex + 1} / {galleryItems.length}</p>
+            <button type="button" aria-label="Next photo" onClick={() => movePhoto(1)} className={`${viewerArrowClass} col-start-3 row-start-2 justify-self-end sm:row-start-1`}>
               <ChevronRight size={24} aria-hidden="true" />
             </button>
           </div>
-          <p className="text-center text-sm tabular-nums text-muted-foreground">{selectedIndex + 1} / {galleryItems.length}</p>
         </DialogContent>
       </Dialog>
     </section>
