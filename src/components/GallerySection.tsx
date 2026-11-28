@@ -1,6 +1,7 @@
-import { useCallback, useRef, useState, useEffect } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { CoverFlow } from '@/components/ui/cover-flow';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import galleryContent from '@/content/gallery.json';
 import mockHackathon from '@/content/mock-hackathon-2026.json';
@@ -13,19 +14,18 @@ const galleryItems = [
   ...galleryContent.galleryItems,
 ];
 
+const covers = galleryItems.map(({ image, text }) => ({ src: image, title: text }));
+
 const viewerArrowClass = 'flex size-11 shrink-0 items-center justify-center rounded-full border border-border bg-background text-foreground hover:border-foreground hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2';
 
 const GallerySection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const coverFlowContainer = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
   const reduceMotion = useReducedMotion();
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
-  const viewerTrigger = useRef<HTMLButtonElement | null>(null);
   const selectedPhoto = galleryItems[selectedIndex];
 
   const centerThumbnail = useCallback((thumbnail: HTMLButtonElement | null) => {
@@ -41,39 +41,6 @@ const GallerySection = () => {
   const movePhoto = (direction: number) => {
     setSelectedIndex(index => (index + direction + galleryItems.length) % galleryItems.length);
   };
-
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
-
-    const handleScroll = () => {
-      const [first, second] = scrollContainer.children;
-      if (!first || !second) return;
-      const itemWidth = second.getBoundingClientRect().left - first.getBoundingClientRect().left;
-      const newIndex = Math.round(scrollContainer.scrollLeft / itemWidth);
-      setActiveIndex(
-        Math.max(0, Math.min(newIndex, galleryItems.length - 1))
-      );
-    };
-
-    scrollContainer.addEventListener('scroll', handleScroll);
-    return () => scrollContainer.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        e.preventDefault();
-        scrollContainer.scrollLeft += e.deltaY;
-      }
-    };
-
-    scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
-    return () => scrollContainer.removeEventListener('wheel', handleWheel);
-  }, []);
 
   return (
     <section
@@ -111,75 +78,24 @@ const GallerySection = () => {
         </motion.p>
       </div>
 
-      {/* Gallery */}
-      <motion.div
-        ref={scrollRef}
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="flex gap-4 overflow-x-auto scrollbar-hide py-8 px-6 md:px-12 cursor-grab active:cursor-grabbing"
-        style={{ scrollBehavior: 'smooth' }}
-      >
-        {galleryItems.map((item, index) => (
-          <div key={item.image} className="flex-shrink-0 p-4">
-            <motion.div
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              animate={{
-                scale: hoveredIndex === index ? 1.1 : 1,
-                opacity:
-                  hoveredIndex === null
-                    ? 0.6
-                    : hoveredIndex === index
-                    ? 1
-                    : 0.4,
-              }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-            >
-              <button
-                type="button"
-                aria-haspopup="dialog"
-                aria-label={`Enlarge image: ${item.text}`}
-                onClick={event => {
-                  viewerTrigger.current = event.currentTarget;
-                  setSelectedIndex(index);
-                  setIsViewerOpen(true);
-                }}
-                className={`relative block w-[280px] h-[380px] cursor-pointer bg-card border overflow-hidden text-left transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${
-                  activeIndex === index
-                    ? 'border-foreground'
-                    : 'border-border'
-                }`}
-              >
-                <img
-                  src={item.image}
-                  alt=""
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-
-                {/* Text */}
-                <span className="absolute bottom-3 left-3 font-mangro text-sm tracking-wide text-foreground">
-                  {item.text}
-                </span>
-              </button>
-            </motion.div>
-          </div>
-        ))}
-      </motion.div>
-
-      {/* Indicators */}
-      <div className="flex justify-center gap-2 mt-6">
-        {galleryItems.map((_, index) => (
-          <div
-            key={index}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              index === activeIndex
-                ? 'bg-foreground w-6'
-                : 'bg-muted-foreground/30 w-2'
-            }`}
-          />
-        ))}
+      <div ref={coverFlowContainer} className="mx-auto h-[340px] max-w-7xl sm:h-[460px] lg:h-[520px]">
+        <CoverFlow
+          items={covers}
+          defaultIndex={0}
+          ariaLabel="Gallery cover flow"
+          stageColor="hsl(var(--card))"
+          pageColor="transparent"
+          accent="hsl(var(--ring))"
+          captionColor="#fff"
+          font="var(--font-display)"
+          wheel={false}
+          sway={0}
+          onSelect={index => {
+            setSelectedIndex(index);
+            setIsViewerOpen(true);
+          }}
+          style={{ minHeight: 0 }}
+        />
       </div>
 
       <Dialog open={isViewerOpen} onOpenChange={setIsViewerOpen}>
@@ -188,7 +104,7 @@ const GallerySection = () => {
           className="max-h-[94dvh] w-[calc(100%-1rem)] max-w-[calc(68dvh+10rem)] gap-3 overflow-auto p-3 motion-reduce:animate-none sm:w-[calc(100%-2rem)] sm:gap-4 sm:p-6"
           onCloseAutoFocus={event => {
             event.preventDefault();
-            viewerTrigger.current?.focus({ preventScroll: true });
+            coverFlowContainer.current?.querySelector<HTMLElement>('[aria-roledescription="carousel"]')?.focus({ preventScroll: true });
           }}
           onKeyDown={event => {
             if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
