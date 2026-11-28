@@ -38,6 +38,7 @@
     { "file": "07-podium-remarks.png", "caption": "Remarks from the podium" },
     { "file": "08-stage-address.png", "caption": "Address to participants" },
     { "file": "09-auditorium-stage.png", "caption": "View from the auditorium" },
-    { "file": "10-speaker-at-the-lectern.png", "caption": "Mock Hackathon speaker at the lectern" }
+    { "file": "10-speaker-at-the-lectern.png", "caption": "Mock Hackathon speaker at the lectern" },
+    { "file": "11-address-from-the-stage.png", "caption": "Mock Hackathon address from the stage" }
   ]
 }
