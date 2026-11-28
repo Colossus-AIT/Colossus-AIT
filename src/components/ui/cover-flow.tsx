@@ -585,6 +585,9 @@ export function CoverFlow({
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.button !== 0 || !n || seconds !== undefined) return;
+    // Keep keyboard focus on the carousel when a cover moves out of view.
+    e.preventDefault();
+    rootRef.current?.focus({ preventScroll: true });
     const s = st.current;
     const el = (e.target as HTMLElement).closest("[data-cf-i]") as HTMLElement | null;
     s.downCard = el ? Number(el.dataset.cfI) : -1;
@@ -814,7 +817,6 @@ export function CoverFlow({
                     ref={(el) => { cardRefs.current[i] = el; }}
                     data-cf-i={i}
                     role="button"
-                    tabIndex={-1}
                     aria-label={i === active ? `${it.title}${it.subtitle ? `, ${it.subtitle}` : ""}` : `Show ${it.title}`}
                     aria-current={i === active ? "true" : undefined}
                     style={{ position: "absolute", left: 0, top: 0, width: S, height: S, transformOrigin: "50% 50%", pointerEvents: "auto", willChange: "transform" }}
