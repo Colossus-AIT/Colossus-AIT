@@ -108,6 +108,7 @@ className="flex items-center justify-center py-16 px-6 md:px-12 relative overflo
               <motion.a
                 key={social.name}
                 href={social.href}
+                aria-label={`Colossus Tech Club on ${social.name}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}

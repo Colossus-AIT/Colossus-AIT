@@ -1,0 +1,304 @@
+{
+  "/images/events/mock-hackathon-2026/01-opening-address.png": [
+    {
+      "src": "/images/optimized/01-opening-address-480.webp",
+      "width": 480,
+      "height": 640
+    },
+    {
+      "src": "/images/optimized/01-opening-address-960.webp",
+      "width": 960,
+      "height": 1280
+    }
+  ],
+  "/images/events/mock-hackathon-2026/02-auditorium-audience.png": [
+    {
+      "src": "/images/optimized/02-auditorium-audience-480.webp",
+      "width": 480,
+      "height": 360
+    },
+    {
+      "src": "/images/optimized/02-auditorium-audience-960.webp",
+      "width": 960,
+      "height": 720
+    }
+  ],
+  "/images/events/mock-hackathon-2026/03-project-presentation.png": [
+    {
+      "src": "/images/optimized/03-project-presentation-480.webp",
+      "width": 480,
+      "height": 360
+    },
+    {
+      "src": "/images/optimized/03-project-presentation-960.webp",
+      "width": 960,
+      "height": 720
+    }
+  ],
+  "/images/events/mock-hackathon-2026/04-team-on-stage.png": [
+    {
+      "src": "/images/optimized/04-team-on-stage-480.webp",
+      "width": 480,
+      "height": 270
+    },
+    {
+      "src": "/images/optimized/04-team-on-stage-960.webp",
+      "width": 960,
+      "height": 540
+    }
+  ],
+  "/images/events/mock-hackathon-2026/05-group-photo.png": [
+    {
+      "src": "/images/optimized/05-group-photo-480.webp",
+      "width": 480,
+      "height": 270
+    },
+    {
+      "src": "/images/optimized/05-group-photo-960.webp",
+      "width": 960,
+      "height": 540
+    }
+  ],
+  "/images/events/mock-hackathon-2026/06-on-stage-recognition.png": [
+    {
+      "src": "/images/optimized/06-on-stage-recognition-480.webp",
+      "width": 480,
+      "height": 360
+    },
+    {
+      "src": "/images/optimized/06-on-stage-recognition-960.webp",
+      "width": 960,
+      "height": 720
+    }
+  ],
+  "/images/events/mock-hackathon-2026/07-podium-remarks.png": [
+    {
+      "src": "/images/optimized/07-podium-remarks-480.webp",
+      "width": 480,
+      "height": 640
+    },
+    {
+      "src": "/images/optimized/07-podium-remarks-960.webp",
+      "width": 960,
+      "height": 1280
+    }
+  ],
+  "/images/events/mock-hackathon-2026/08-stage-address.png": [
+    {
+      "src": "/images/optimized/08-stage-address-480.webp",
+      "width": 480,
+      "height": 640
+    },
+    {
+      "src": "/images/optimized/08-stage-address-960.webp",
+      "width": 960,
+      "height": 1280
+    }
+  ],
+  "/images/events/mock-hackathon-2026/09-auditorium-stage.png": [
+    {
+      "src": "/images/optimized/09-auditorium-stage-480.webp",
+      "width": 480,
+      "height": 640
+    },
+    {
+      "src": "/images/optimized/09-auditorium-stage-960.webp",
+      "width": 960,
+      "height": 1280
+    }
+  ],
+  "/images/events/mock-hackathon-2026/10-speaker-at-the-lectern.png": [
+    {
+      "src": "/images/optimized/10-speaker-at-the-lectern-480.webp",
+      "width": 480,
+      "height": 621
+    },
+    {
+      "src": "/images/optimized/10-speaker-at-the-lectern-960.webp",
+      "width": 960,
+      "height": 1242
+    }
+  ],
+  "/images/events/mock-hackathon-2026/11-address-from-the-stage.png": [
+    {
+      "src": "/images/optimized/11-address-from-the-stage-480.webp",
+      "width": 480,
+      "height": 640
+    },
+    {
+      "src": "/images/optimized/11-address-from-the-stage-960.webp",
+      "width": 960,
+      "height": 1280
+    }
+  ],
+  "/images/gallery/inaug-01.jpeg": [
+    {
+      "src": "/images/optimized/inaug-01-480.webp",
+      "width": 480,
+      "height": 640
+    },
+    {
+      "src": "/images/optimized/inaug-01-960.webp",
+      "width": 960,
+      "height": 1280
+    }
+  ],
+  "/images/gallery/inaug-02.jpeg": [
+    {
+      "src": "/images/optimized/inaug-02-480.webp",
+      "width": 480,
+      "height": 254
+    },
+    {
+      "src": "/images/optimized/inaug-02-960.webp",
+      "width": 960,
+      "height": 507
+    }
+  ],
+  "/images/gallery/inaug-03.JPG": [
+    {
+      "src": "/images/optimized/inaug-03-480.webp",
+      "width": 480,
+      "height": 853
+    },
+    {
+      "src": "/images/optimized/inaug-03-960.webp",
+      "width": 960,
+      "height": 1707
+    }
+  ],
+  "/images/gallery/inaug-04.png": [
+    {
+      "src": "/images/optimized/inaug-04-480.webp",
+      "width": 480,
+      "height": 503
+    },
+    {
+      "src": "/images/optimized/inaug-04-960.webp",
+      "width": 756,
+      "height": 793
+    }
+  ],
+  "/images/gallery/inaug-05.JPG": [
+    {
+      "src": "/images/optimized/inaug-05-480.webp",
+      "width": 480,
+      "height": 853
+    },
+    {
+      "src": "/images/optimized/inaug-05-960.webp",
+      "width": 960,
+      "height": 1707
+    }
+  ],
+  "/images/gallery/inaug-06.JPG": [
+    {
+      "src": "/images/optimized/inaug-06-480.webp",
+      "width": 480,
+      "height": 853
+    },
+    {
+      "src": "/images/optimized/inaug-06-960.webp",
+      "width": 960,
+      "height": 1707
+    }
+  ],
+  "/images/gallery/inaug-07.JPG": [
+    {
+      "src": "/images/optimized/inaug-07-480.webp",
+      "width": 480,
+      "height": 853
+    },
+    {
+      "src": "/images/optimized/inaug-07-960.webp",
+      "width": 960,
+      "height": 1707
+    }
+  ],
+  "/images/gallery/inaug-08.JPG": [
+    {
+      "src": "/images/optimized/inaug-08-480.webp",
+      "width": 480,
+      "height": 270
+    },
+    {
+      "src": "/images/optimized/inaug-08-960.webp",
+      "width": 960,
+      "height": 540
+    }
+  ],
+  "/images/gallery/inaug-10.jpeg": [
+    {
+      "src": "/images/optimized/inaug-10-480.webp",
+      "width": 480,
+      "height": 360
+    },
+    {
+      "src": "/images/optimized/inaug-10-960.webp",
+      "width": 960,
+      "height": 720
+    }
+  ],
+  "/images/gallery/inaug-11.jpeg": [
+    {
+      "src": "/images/optimized/inaug-11-480.webp",
+      "width": 480,
+      "height": 393
+    },
+    {
+      "src": "/images/optimized/inaug-11-960.webp",
+      "width": 960,
+      "height": 785
+    }
+  ],
+  "/images/gallery/session-01 img-03.jpeg": [
+    {
+      "src": "/images/optimized/session-01 img-03-480.webp",
+      "width": 480,
+      "height": 640
+    },
+    {
+      "src": "/images/optimized/session-01 img-03-960.webp",
+      "width": 960,
+      "height": 1280
+    }
+  ],
+  "/images/posters/ComingSoon.jpg": [
+    {
+      "src": "/images/optimized/ComingSoon-480.webp",
+      "width": 480,
+      "height": 679
+    },
+    {
+      "src": "/images/optimized/ComingSoon-960.webp",
+      "width": 960,
+      "height": 1358
+    }
+  ],
+  "/images/posters/full-stack-workshop-session.png": [
+    {
+      "src": "/images/optimized/full-stack-workshop-session-480.webp",
+      "width": 480,
+      "height": 640
+    },
+    {
+      "src": "/images/optimized/full-stack-workshop-session-960.webp",
+      "width": 960,
+      "height": 1280
+    }
+  ],
+  "/logos/Colossus-logo-white.png": [
+    {
+      "src": "/images/optimized/Colossus-logo-white-128.webp",
+      "width": 128,
+      "height": 106
+    }
+  ],
+  "/logos/Colossus_logo_png.png": [
+    {
+      "src": "/images/optimized/Colossus_logo_png-128.webp",
+      "width": 128,
+      "height": 107
+    }
+  ]
+}

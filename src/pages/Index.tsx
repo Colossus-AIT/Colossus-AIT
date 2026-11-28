@@ -1,6 +1,5 @@
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
-import SkillsSection from '@/components/SkillsSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import GallerySection from '@/components/GallerySection';
 import QuotesSection from '@/components/QuotesSection';
@@ -15,7 +14,7 @@ const Index = () => {
       <FilmGrain />
       <ScrollProgress />
 
-      <main>
+      <div>
         <HeroSection />
         <AboutSection />
         <ThreeDCarousel />
@@ -24,7 +23,7 @@ const Index = () => {
         <GallerySection />
         <QuotesSection />
         <ContactSection />
-      </main>
+      </div>
     </div>
   );
 };

@@ -2,6 +2,8 @@ import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Download, X, Github, ExternalLink, type LucideIcon } from 'lucide-react';
 import projectsContent from '@/content/projects.json';
+import site from '@/content/site.json';
+import { imageProps } from '@/lib/media';
 
 interface Project {
   id: number;
@@ -22,6 +24,7 @@ interface ProjectsSectionProps {
     sectionLabel: string;
     heading: string;
   };
+  pageHeading?: boolean;
 }
 
 interface ProjectActionProps {
@@ -53,8 +56,9 @@ const ProjectAction = ({ url, label, icon: Icon, download = false }: ProjectActi
   );
 };
 
-const ProjectsSection = ({ content = projectsContent }: ProjectsSectionProps) => {
+const ProjectsSection = ({ content = projectsContent, pageHeading = false }: ProjectsSectionProps) => {
   const { projects, sectionLabel, heading } = content;
+  const Heading = pageHeading ? motion.h1 : motion.h2;
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -80,15 +84,20 @@ const ProjectsSection = ({ content = projectsContent }: ProjectsSectionProps) =>
           </span>
         </motion.div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+        <Heading
+          initial={pageHeading ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-12 tracking-tight"
+          className={`font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight ${pageHeading ? 'mb-4' : 'mb-12'}`}
         >
           {heading}
-        </motion.h2>
+        </Heading>
+        {pageHeading && (
+          <p className="mb-12 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            Project showcase for the {site.department} at {site.institution}, {site.city}.
+          </p>
+        )}
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -117,8 +126,9 @@ const ProjectsSection = ({ content = projectsContent }: ProjectsSectionProps) =>
                   {/* Image */}
                   <div className="relative w-full aspect-[2/3] overflow-hidden bg-black">
                     <img
-                      src={project.image}
+                      {...imageProps(project.image, '(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 400px')}
                       alt={project.title}
+                      loading="lazy"
                       className="absolute inset-0 w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                       draggable="false"
                     />
@@ -148,7 +158,9 @@ const ProjectsSection = ({ content = projectsContent }: ProjectsSectionProps) =>
                         {project.category}
                       </span>
                       <h3 className="font-display text-xl md:text-2xl tracking-tight">
-                        {project.title}
+                        <button type="button" aria-haspopup="dialog" className="text-left after:absolute after:inset-0 focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:-outline-offset-2">
+                          {project.title}
+                        </button>
                       </h3>
                       <motion.p
                         initial={{ opacity: 0, y: 10 }}
@@ -195,6 +207,8 @@ const ProjectsSection = ({ content = projectsContent }: ProjectsSectionProps) =>
                 onClick={(e) => e.stopPropagation()}
               >
                 <button
+                  type="button"
+                  aria-label="Close project details"
                   onClick={() => setSelectedProject(null)}
                   className="absolute top-4 right-4 p-2 hover:opacity-60"
                 >

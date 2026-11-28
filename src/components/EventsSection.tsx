@@ -3,6 +3,8 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, X, ExternalLink, Download } from 'lucide-react';
 import eventsContent from '@/content/events.json';
 import mockHackathon from '@/content/mock-hackathon-2026.json';
+import site from '@/content/site.json';
+import { imageProps } from '@/lib/media';
 
 type EventItem = (typeof eventsContent.events)[number];
 
@@ -44,27 +46,30 @@ const EventsSection = () => {
 
     {/* Section Title */}
     <motion.div
-      initial={{ opacity: 0, x: -50 }}
+      initial={false}
       animate={isInView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.8 }}
       className="mb-12"
     >
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
+      <motion.h1
+        initial={false}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.6, delay: 0.1 }}
         className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight"
       >
         {eventsContent.heading}
-      </motion.h2>
+      </motion.h1>
+      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+        Technical events organised by {site.name} at {site.institution}, {site.city}. Listings marked as placeholders are examples.
+      </p>
     </motion.div>
 
     {eventGroups.map(group => (
       <section key={group.status} aria-labelledby={`events-${group.status}`} className="mb-12 last:mb-0">
-        <h3 id={`events-${group.status}`} className="mb-6 font-display text-2xl font-bold tracking-tight md:text-3xl">
+        <h2 id={`events-${group.status}`} className="mb-6 font-display text-2xl font-bold tracking-tight md:text-3xl">
           {group.heading}
-        </h3>
+        </h2>
         {group.events.length === 0 && (
           <p className="text-sm text-muted-foreground">{group.emptyMessage}</p>
         )}
@@ -95,8 +100,9 @@ const EventsSection = () => {
                   {/* Poster Section */}
                   <div className="relative w-full aspect-[2/3] overflow-hidden">
                     <img
-                      src={event.poster}
+                      {...imageProps(event.poster, '(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 400px')}
                       alt={event.title}
+                      loading="lazy"
                   className="absolute inset-0 w-full h-full object-contain bg-black transition-transform duration-700 group-hover:scale-105"
                       draggable="false"
                     />
@@ -131,7 +137,7 @@ const EventsSection = () => {
                         {event.category}
                       </span>
 
-                      <h4
+                      <h3
                         className={`font-display text-xl md:text-2xl tracking-tight transition-all duration-300 ${
                           hoveredId === event.id ? 'font-bold' : 'font-medium'
                         }`}
@@ -143,7 +149,7 @@ const EventsSection = () => {
                         >
                           {event.title}
                         </button>
-                      </h4>
+                      </h3>
 
                       <motion.p
                         initial={{ opacity: 0, y: 10 }}
@@ -174,6 +180,12 @@ const EventsSection = () => {
         </div>
       </section>
     ))}
+
+    <section className="mt-12 max-w-2xl space-y-4" aria-labelledby="hackathon-summary">
+      <h2 id="hackathon-summary" className="font-display text-2xl font-bold">{mockHackathon.title} recap</h2>
+      <p className="text-sm leading-relaxed text-muted-foreground">{mockHackathon.overview}</p>
+      <a href={mockHackathon.reportUrl} className="inline-block text-sm underline underline-offset-4">Read the Mock Hackathon 2026 report (PDF)</a>
+    </section>
 
     {/* Modal */}
     <AnimatePresence>

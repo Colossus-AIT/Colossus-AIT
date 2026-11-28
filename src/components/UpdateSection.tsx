@@ -8,8 +8,14 @@ import React, {
 } from 'react';
 import { motion, useInView } from 'framer-motion';
 import updatesContent from '@/content/updates.json';
+import mockHackathon from '@/content/mock-hackathon-2026.json';
+import { imageProps } from '@/lib/media';
 
 const { images: updateImages } = updatesContent;
+const updateCaptions = new Map(mockHackathon.photos.map(({ file, caption }) => [
+  `${mockHackathon.imageFolder}/${file}`, caption,
+]));
+updateCaptions.set('/images/gallery/inaug-11.jpeg', 'Group photo from the Colossus Tech Club inauguration');
 
 /* Fallback */
 const FALLBACK =
@@ -39,12 +45,13 @@ const Card = React.memo(({ src, transform, cardW, cardH }: CardProps) => (
       style={{ backfaceVisibility: 'hidden' }}
     >
       <img
-        src={src}
-        alt={updatesContent.imageAlt}
+        {...imageProps(src, `${cardW}px`)}
+        alt={updateCaptions.get(src) ?? updatesContent.imageAlt}
         className="w-full h-full object-cover"
         loading="lazy"
         draggable="false"
         onError={e => {
+          e.currentTarget.removeAttribute('srcset');
           e.currentTarget.src = FALLBACK;
         }}
       />

@@ -1,7 +1,7 @@
-import { useCallback, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useRef, useState } from 'react';
 import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { CoverFlow } from '@/components/ui/cover-flow';
+import { imageProps } from '@/lib/media';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import galleryContent from '@/content/gallery.json';
 import mockHackathon from '@/content/mock-hackathon-2026.json';
@@ -14,7 +14,20 @@ const galleryItems = [
   ...galleryContent.galleryItems,
 ];
 
-const covers = galleryItems.map(({ image, text }) => ({ src: image, title: text }));
+const CoverFlow = lazy(() => import('@/components/ui/cover-flow'));
+const covers = galleryItems.map(({ image, text }) => ({
+  ...imageProps(image, '(max-width: 639px) 70vw, 450px'),
+  title: text,
+}));
+
+const galleryPreview = (
+  <img
+    {...imageProps(galleryItems[0].image, '(max-width: 639px) 70vw, 450px')}
+    alt={galleryItems[0].text}
+    loading="lazy"
+    className="mx-auto h-full w-auto max-w-full rounded-xl object-contain"
+  />
+);
 
 const viewerArrowClass = 'flex size-11 shrink-0 items-center justify-center rounded-full border border-border bg-background text-foreground hover:border-foreground hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2';
 
@@ -22,6 +35,7 @@ const GallerySection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const coverFlowContainer = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const loadCoverFlow = useInView(coverFlowContainer, { once: true, margin: '250px' });
   const reduceMotion = useReducedMotion();
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -79,7 +93,7 @@ const GallerySection = () => {
       </div>
 
       <div ref={coverFlowContainer} className="mx-auto h-[340px] max-w-7xl sm:h-[460px] lg:h-[520px]">
-        <CoverFlow
+        {loadCoverFlow ? <Suspense fallback={galleryPreview}><CoverFlow
           items={covers}
           defaultIndex={0}
           ariaLabel="Gallery cover flow"
@@ -96,7 +110,7 @@ const GallerySection = () => {
             setIsViewerOpen(true);
           }}
           style={{ minHeight: 0 }}
-        />
+        /></Suspense> : galleryPreview}
       </div>
 
       <Dialog open={isViewerOpen} onOpenChange={setIsViewerOpen}>
@@ -151,7 +165,7 @@ const GallerySection = () => {
                         index === selectedIndex ? 'border-foreground' : 'border-border hover:border-muted-foreground'
                       }`}
                     >
-                      <img src={item.image} alt="" loading="lazy" className="h-full w-full rounded-full object-cover" />
+                      <img {...imageProps(item.image)} alt="" loading="lazy" className="h-full w-full rounded-full object-cover" />
                     </button>
                   ))}
                 </div>

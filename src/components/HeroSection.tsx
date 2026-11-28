@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import heroContent from '@/content/hero.json';
 
@@ -6,7 +6,6 @@ const { titleText, subtitleText } = heroContent;
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -26,7 +25,6 @@ const HeroSection = () => {
         const yPos = (e.clientY - rect.top) / rect.height;
         mouseX.set(xPos);
         mouseY.set(yPos);
-        setMousePosition({ x: e.clientX, y: e.clientY });
       }
     };
 
@@ -35,14 +33,13 @@ const HeroSection = () => {
   }, [mouseX, mouseY]);
 
   const letterVariants = {
-    initial: { opacity: 0, y: 100, filter: 'blur(10px)' },
+    initial: { opacity: 1, y: 12 },
     animate: (i: number) => ({
       opacity: 1,
       y: 0,
-      filter: 'blur(0px)',
       transition: {
-        duration: 0.8,
-        delay: i * 0.05 + 0.5,
+        duration: 0.45,
+        delay: i * 0.02,
         ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     }),
@@ -80,7 +77,8 @@ const HeroSection = () => {
 
        {/* Main Title Letters */}
         <h1 className="font-display text-[11vw] sm:text-[12vw] md:text-[12vw] leading-[0.85] tracking-tighter font-bold">
-          <div className="overflow-hidden">
+          <span className="sr-only">{titleText} {subtitleText}</span>
+          <span aria-hidden="true" className="block overflow-hidden">
             {titleText.split('').map((letter, i) => (
               <motion.span
                 key={i}
@@ -93,8 +91,8 @@ const HeroSection = () => {
                 {letter}
               </motion.span>
             ))}
-          </div>
-          <div className="overflow-hidden text-[6vw] md:text-[4.5vw] tracking-tighter">
+          </span>
+          <span aria-hidden="true" className="block overflow-hidden text-[6vw] md:text-[4.5vw] tracking-tighter">
             {subtitleText.split('').map((letter, i) => (
               <motion.span
                 key={i}
@@ -107,14 +105,14 @@ const HeroSection = () => {
                 {letter}
               </motion.span>
             ))}
-          </div>
+          </span>
         </h1>
 
         {/* Tagline */}
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 1, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
+          transition={{ duration: 0.45 }}
           className="mt-12 text-sm md:text-base text-muted-foreground max-w-md mx-auto font-body font-light tracking-wide"
         >
          {heroContent.tagline}

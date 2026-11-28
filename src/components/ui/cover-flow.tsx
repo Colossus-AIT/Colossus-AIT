@@ -13,6 +13,10 @@ export interface CoverFlowItem {
   subtitle?: string;
   /** Image URL for the cover. Square images look best; anything else is cropped to fill. */
   src: string;
+  srcSet?: string;
+  sizes?: string;
+  width?: number;
+  height?: number;
   /** Alternative text for the cover image. Defaults to the title. */
   alt?: string;
 }
@@ -828,7 +832,7 @@ export function CoverFlow({
                       </div>
                     )}
                     <div ref={(el) => { clipRefs.current[i] = el; }} style={{ position: "absolute", inset: 0, overflow: "hidden", background: stageColor }}>
-                      <img src={it.src} alt={it.alt ?? it.title} draggable={false} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                      <img src={it.src} srcSet={it.srcSet} sizes={it.sizes} width={it.width} height={it.height} alt={it.alt ?? it.title} decoding="async" draggable={false} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                       <div ref={(el) => { fadeRefs.current[i] = el; }} style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent ${FADE_FROM * 100}%, ${stageColor} ${FADE_TO * 100}%)`, opacity: 0 }} />
                     </div>
                   </div>

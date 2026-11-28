@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Navigate, Routes, Route, useLocation } from "react-router-dom";
+import { Navigate, Routes, Route, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
@@ -15,8 +15,40 @@ import mockHackathon from "@/content/mock-hackathon-2026.json";
 import EventsSection from "./components/EventsSection";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import { getPageSeo } from "@/lib/site-seo";
 
 const queryClient = new QueryClient();
+
+const PageMetadata = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const { page, canonical, meta, schema } = getPageSeo(pathname);
+    document.title = page.title;
+    document.querySelectorAll("[data-site-seo]").forEach(node => node.remove());
+    for (const [attribute, name, value] of meta) {
+      const tag = document.createElement("meta");
+      tag.setAttribute(attribute, name);
+      tag.content = value;
+      tag.setAttribute("data-site-seo", "");
+      document.head.append(tag);
+    }
+    if (canonical) {
+      const link = document.createElement("link");
+      link.rel = "canonical";
+      link.href = canonical;
+      link.setAttribute("data-site-seo", "");
+      document.head.append(link);
+    }
+    if (schema) {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.textContent = JSON.stringify(schema);
+      script.setAttribute("data-site-seo", "");
+      document.head.append(script);
+    }
+  }, [pathname]);
+  return null;
+};
 
 /* Scroll handler for hash links */
 const ScrollToHash = () => {
@@ -45,7 +77,7 @@ const ScrollToTop = () => {
 };
 
 const App = () => {
-  const [isDark, setIsDark] = useState(() => !document.documentElement.classList.contains("light"));
+  const [isDark, setIsDark] = useState(() => typeof document === "undefined" || !document.documentElement.classList.contains("light"));
 
   const toggleTheme = (button: HTMLButtonElement) => {
     const root = document.documentElement;
@@ -95,11 +127,11 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <>
+          <PageMetadata />
           <ScrollToTop />
           <ScrollToHash />
-          <Analytics />
-          <SpeedInsights />
+          {typeof window !== "undefined" && <><Analytics /><SpeedInsights /></>}
           <div className="relative min-h-screen">
             {/* Global Navigation */}
             <Navigation onThemeToggle={toggleTheme} isDark={isDark} />
@@ -117,7 +149,7 @@ const App = () => {
             {/* Global Footer */}
             <Footer />
           </div>
-        </BrowserRouter>
+        </>
       </TooltipProvider>
     </QueryClientProvider>
   );

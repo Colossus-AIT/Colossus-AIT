@@ -4,6 +4,7 @@ import { Moon, Sun } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import PillNav from './PillNav';
 import navigationContent from '@/content/navigation.json';
+import { imageProps } from '@/lib/media';
 
 const { navItems } = navigationContent;
 
@@ -26,7 +27,7 @@ const Navigation = ({ onThemeToggle, isDark }: NavigationProps) => {
 
   return (
     
-    <motion.nav
+    <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}
@@ -43,12 +44,12 @@ className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 flex items-center
             whileHover={{ scale: 1.05 }}
           >
             <img
-              src={navigationContent.darkLogo}
+              {...imageProps(navigationContent.darkLogo)}
               alt={navigationContent.logoAlt}
               className={`h-8 w-auto object-contain ${isDark ? '' : 'hidden'}`}
             />
             <img
-              src={navigationContent.logo}
+              {...imageProps(navigationContent.logo)}
               alt={navigationContent.logoAlt}
               className={`h-8 w-auto object-contain ${isDark ? 'hidden' : ''}`}
             />
@@ -56,7 +57,7 @@ className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 flex items-center
 
          {/* Pill Navigation */}
       <PillNav
-        logo={navigationContent.logo}
+        logo={imageProps(isDark ? navigationContent.darkLogo : navigationContent.logo).src}
         logoAlt={navigationContent.logoAlt}
         items={navItems}
         activeHref={location.pathname.startsWith('/events/') ? '/events' : location.pathname}
@@ -83,7 +84,7 @@ className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 flex items-center
         </motion.button>
       </div>
     </div>
-    </motion.nav>
+    </motion.header>
   );
 };
 

@@ -1,0 +1,14 @@
+{
+  "name": "Colossus Tech Club",
+  "origin": "https://colossus-ise-ait.vercel.app",
+  "institution": "Akshaya Institute of Technology",
+  "department": "Department of Information Science and Engineering",
+  "departmentUrl": "https://www.ait-tumkur.ac.in/information-science-engineering",
+  "city": "Tumakuru",
+  "region": "Karnataka",
+  "country": "India",
+  "summary": "Colossus Tech Club is a student technology club in the Department of Information Science and Engineering at Akshaya Institute of Technology, Tumakuru, Karnataka, India.",
+  "activities": "The club gives students practical experience through coding workshops, hackathons and team projects. Explore past events and project listings, or contact the club about taking part.",
+  "shareImage": "/images/optimized/colossus-mock-hackathon-share.jpg",
+  "shareImageAlt": "Group photograph at Colossus Tech Club’s Mock Hackathon 2026"
+}

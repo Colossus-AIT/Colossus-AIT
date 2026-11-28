@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import aboutContent from '@/content/about.json';
+import site from '@/content/site.json';
+import { Link } from 'react-router-dom';
 
 const { mainLines, philosophyLines } = aboutContent;
 
@@ -57,7 +59,8 @@ const AboutSection = () => {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <span className="text-xs tracking-[0.3em] text-muted-foreground font-body">
+          <h2 className="sr-only">About Colossus Tech Club</h2>
+          <span aria-hidden="true" className="text-xs tracking-[0.3em] text-muted-foreground font-body">
             {aboutContent.sectionLabel}
           </span>
         </motion.div>
@@ -133,6 +136,26 @@ const AboutSection = () => {
             </p>
           </div>
         </motion.div>
+        <div className="mt-10 max-w-2xl space-y-4 text-sm leading-relaxed text-muted-foreground">
+          <p>{site.summary} <a href={site.departmentUrl} className="underline underline-offset-4">Visit the AIT department website</a>.</p>
+          <p>{site.activities}</p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            <li><Link to="/events" className="underline underline-offset-4">Explore technical events</Link></li>
+            <li><Link to="/projects" className="underline underline-offset-4">Browse department projects</Link></li>
+            <li><a href="#contact" className="underline underline-offset-4">Contact Colossus Tech Club</a></li>
+          </ul>
+        </div>
+        <div className="mt-10 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          <h3 className="mb-3 font-display text-lg font-semibold text-foreground">Questions about Colossus</h3>
+          <details className="border-t border-border py-3">
+            <summary className="cursor-pointer text-foreground">Has Colossus organised a hackathon?</summary>
+            <p className="mt-2">Yes. The club organised Mock Hackathon 2026, where student teams developed solutions to practical challenges. The <Link to="/events" className="underline underline-offset-4">Events page</Link> includes the recap and report.</p>
+          </details>
+          <details className="border-t border-border py-3">
+            <summary className="cursor-pointer text-foreground">How can students take part?</summary>
+            <p className="mt-2">Check the Events page for announced activities or <a href="#contact" className="underline underline-offset-4">contact the club</a> to ask about participation.</p>
+          </details>
+        </div>
       </div>
     </section>
   );
