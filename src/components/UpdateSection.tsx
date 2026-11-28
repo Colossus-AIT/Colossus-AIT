@@ -74,7 +74,10 @@ const ThreeDCarousel = () => {
   /* Responsive Physics */
   const CARD_W = isMobile ? 160 : 260;
   const CARD_H = isMobile ? 210 : 340;
-  const RADIUS = isMobile ? 180 : 360;
+  const halfCardAngle = Math.PI / Math.max(3, updateImages.length);
+  // Leave room between neighboring cards even at the hover scale.
+  const minimumRadius = (CARD_W * 1.05 + 16) / (2 * Math.tan(halfCardAngle));
+  const RADIUS = Math.max(isMobile ? 180 : 360, Math.ceil(minimumRadius));
 
   const DRAG_SENSITIVITY = isMobile ? 0.9 : 0.5;
   const AUTOSPIN_SPEED = isMobile ? 0.15 : 0.05;
